@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+psycopg[binary]
+python-dotenv
+simfile
+beautifulsoup4
+requests

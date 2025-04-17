@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# Python cache and log files
+*.log
+*.sqlite3
+*.db
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# VS Code settings
+.vscode/
+
+# Mac & Linux trash
+.DS_Store
+Thumbs.db
+
+# Flask-specific
+instance/
+*.pid
+
+# Compiled static files (if any)
+app/static/dist/
