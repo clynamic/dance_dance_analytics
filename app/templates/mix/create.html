@@ -2,7 +2,7 @@
 head %}
 <link
   rel="stylesheet"
-  href="{{ url_for('static', filename='mix/create.css') }}"
+  href="{{ url_for('static', filename='css/mix/create.css') }}"
 />
 {% endblock %} {% block content %}
 <div class="mix-card">
@@ -47,9 +47,6 @@ head %}
 
     const response = await fetch("/api/mix/create.json", {
       method: "POST",
-      headers: {
-        Authorization: "Bearer {{ api_key }}", // If needed
-      },
       body: formData,
     });
 
