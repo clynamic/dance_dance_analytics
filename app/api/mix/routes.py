@@ -1,4 +1,5 @@
 from flask import Blueprint
+from app.api.auth.guard import require_admin
 from app.form.mix.create import MixCreateForm
 from app.database import db
 
@@ -8,6 +9,7 @@ mix_api_bp = Blueprint("mix_api", __name__)
 
 
 @mix_api_bp.route("/create.json", methods=["POST"])
+@require_admin
 def create_mix():
     form = MixCreateForm()
 

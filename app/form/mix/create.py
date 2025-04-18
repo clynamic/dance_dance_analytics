@@ -8,10 +8,6 @@ from app.models.mix_record import MixRecord
 
 
 class MixCreateForm(FlaskForm):
-    class Meta:
-        # TODO: re-enable CSRF protection
-        csrf = False
-
     title = StringField("Title", validators=[DataRequired()])
     system = StringField("System", validators=[DataRequired()])
     region = StringField("Region", validators=[DataRequired()])
