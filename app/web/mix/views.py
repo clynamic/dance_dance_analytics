@@ -1,15 +1,18 @@
 from flask import Blueprint, render_template
 from flask import Blueprint, render_template, abort
 from app.models.mix_record import MixRecord
-from app.database import db
 import uuid
 
 mix_web_bp = Blueprint("mix_web", __name__)
 
 
 @mix_web_bp.route("/create")
-def create():
-    return render_template("mix/create.html")
+def create_mix_page():
+    return render_template(
+        "mix/create.html",
+        region_suggestions=MixRecord.get_region_autocomplete(),
+        system_suggestions=MixRecord.get_system_autocomplete(),
+    )
 
 
 @mix_web_bp.route("/<id>")

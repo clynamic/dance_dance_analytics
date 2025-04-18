@@ -32,6 +32,19 @@ class MixRecord(db.Model):
             .scalar()
         )
 
+    @classmethod
+    def _distinct_column_values(cls, column):
+        results = db.session.query(column).distinct().order_by(column).all()
+        return [r[0] for r in results if r[0]]
+
+    @classmethod
+    def get_region_autocomplete(cls):
+        return cls._distinct_column_values(cls.region)
+
+    @classmethod
+    def get_system_autocomplete(cls):
+        return cls._distinct_column_values(cls.system)
+
 
 @event.listens_for(MixRecord, "before_insert")
 def on_insert(mapper, conn, target):
