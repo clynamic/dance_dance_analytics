@@ -9,6 +9,8 @@ from .api.mix.routes import mix_api_bp
 from .api.assets.routes import assets_bp
 from .api.auth.routes import auth_api_bp
 from .web.auth.views import auth_web_bp
+from .web.song.views import song_web_bp
+from .api.song.routes import song_api_bp
 
 
 def create_app():
@@ -22,6 +24,9 @@ def create_app():
 
     api_bp.register_blueprint(mix_api_bp, url_prefix="/mix")
     web_bp.register_blueprint(mix_web_bp, url_prefix="/mix")
+
+    api_bp.register_blueprint(song_api_bp, url_prefix="/song")
+    web_bp.register_blueprint(song_web_bp, url_prefix="/song")
 
     app.register_blueprint(assets_bp, url_prefix="/cdn")
 

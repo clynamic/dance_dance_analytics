@@ -22,7 +22,7 @@ def show(id):
     mix = None
 
     try:
-        mix_id = uuid.UUID(id.split("-")[0])
+        mix_id = uuid.UUID(id)
         mix = MixRecord.query.get(mix_id)
     except (ValueError, IndexError):
         pass

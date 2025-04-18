@@ -1,0 +1,27 @@
+.upload-card {
+  background: var(--surface-color);
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 32px auto;
+  box-shadow: var(--box-shadow);
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--interact-color);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-entry {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--foreground-color-muted);
+}

@@ -12,7 +12,7 @@ class SimfileRecord(db.Model):
     text = db.Column(db.Text, nullable=False)
     hash = db.Column(db.String(64), nullable=False, unique=True)
 
-    base_info = db.relationship(
+    song = db.relationship(
         "SongRecord", back_populates="simfile", uselist=False, cascade="all, delete"
     )
     charts = db.relationship(

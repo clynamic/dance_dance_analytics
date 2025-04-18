@@ -1,0 +1,91 @@
+{% extends "layout.html" %} {% block title %}Upload Simfiles{% endblock %} {%
+block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/song/create.css') }}"
+/>
+<script src="{{ url_for('static', filename='js/csrf.js') }}"></script>
+{% endblock %} {% block content %}
+<div class="upload-card">
+  <h2>Upload Simfiles</h2>
+  <form id="upload-form">
+    <div class="form-field">
+      <label for="mix">Select Mix</label>
+      <select id="mix" name="mix" required>
+        {% for mix in mixes %}
+        <option value="{{ mix.id }}">
+          {{ mix.title }} ({{ mix.system }} - {{ mix.region }})
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="sm-files" class="file-label">Choose .sm Files</label>
+      <input
+        type="file"
+        id="sm-files"
+        name="files"
+        multiple
+        accept=".sm"
+        hidden
+      />
+    </div>
+
+    <div id="file-list"></div>
+
+    <button type="submit">Upload</button>
+  </form>
+</div>
+
+<script>
+  const input = document.getElementById("sm-files");
+  const list = document.getElementById("file-list");
+  const form = document.getElementById("upload-form");
+
+  const fileData = [];
+
+  document
+    .querySelector(".file-label")
+    .addEventListener("click", () => input.click());
+
+  input.addEventListener("change", () => {
+    list.innerHTML = "";
+    fileData.length = 0;
+
+    for (const file of input.files) {
+      const entry = document.createElement("div");
+      entry.className = "file-entry";
+      entry.textContent = file.name + " - Pending";
+      list.appendChild(entry);
+
+      fileData.push({ file, element: entry });
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const mixId = document.getElementById("mix").value;
+
+    for (const { file, element } of fileData) {
+      const text = await file.text();
+      const response = await fetch(
+        `/api/song/create.json?mix_id=${encodeURIComponent(mixId)}`,
+        {
+          method: "POST",
+          ...getCSRFHeaders(),
+          body: text.trim(),
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok) {
+        element.textContent = `${file.name} - OK (ID: ${result.id})`;
+      } else {
+        element.textContent = `${file.name} - Error: ${result.message}`;
+      }
+    }
+  });
+</script>
+{% endblock %}

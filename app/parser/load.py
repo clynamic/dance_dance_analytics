@@ -5,20 +5,12 @@ from app.models.song_record import SongRecord
 
 
 def load_simfile(simfile_text: str) -> SimfileRecord:
-    try:
-        simfile_record = SimfileRecord.from_string(simfile_text)
+    simfile_record = SimfileRecord.from_string(simfile_text)
+    sim = simfile_record.simfile
 
-        with db.session.begin():
-            db.session.add(simfile_record)
+    song = SongRecord.from_sim(sim)
+    song.simfile = simfile_record
 
-            sim = simfile_record.simfile
+    simfile_record.song = song
 
-            song = SongRecord.from_sim(sim)
-            song.simfile = simfile_record
-            db.session.add(song)
-
-        return simfile_record
-
-    except IntegrityError as e:
-        db.session.rollback()
-        raise ValueError(f"Simfile import failed (possible duplicate): {e}")
+    return simfile_record
