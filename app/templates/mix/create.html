@@ -20,18 +20,30 @@ head %}
 
     const form = document.getElementById("mix-form");
     const formData = new FormData(form);
+    const resultEl = document.getElementById("result");
+    resultEl.innerText = "";
 
-    const response = await fetch("/api/mix/create.json", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch("/api/mix/create.json", {
+        method: "POST",
+        body: formData,
+      });
 
-    const result = await response.json();
-    document.getElementById("result").innerText = JSON.stringify(
-      result,
-      null,
-      2
-    );
+      const result = await response.json();
+
+      if (result.status === "success") {
+        const mixId = result.data.id;
+        const slug = result.data.slug;
+        window.location.href = `/mix/${slug}`;
+      } else {
+        resultEl.innerText =
+          result.message +
+          (result.errors ? "\n" + JSON.stringify(result.errors, null, 2) : "");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      resultEl.innerText = "An unexpected error occurred. Please try again.";
+    }
   });
 
   document.getElementById("banner").addEventListener("change", (e) => {
