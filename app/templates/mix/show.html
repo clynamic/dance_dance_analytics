@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block title %}{{ mix.title }}{% endblock %} {%
+block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='mix/show.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="mix-show">
+  <div class="mix-show-header">
+    {% if mix.banner_id %}
+    <img
+      class="mix-banner"
+      src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+      alt="Banner"
+    />
+    {% endif %}
+    <div class="mix-info">
+      <h1>{{ mix.title }}</h1>
+      <p>{{ mix.release.year }} – {{ mix.system }} – {{ mix.region }}</p>
+      <p class="mix-meta">{{ mix.song_count }} songs</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,23 +1,15 @@
 {% extends "layout.html" %} {% block title %}Home{% endblock %} {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='mix/_preview.css') }}"
+/>
 {% endblock %} {% block content %}
 <div class="index-page">
-  <div class="index-nav-grid">
-    <h2 class="index-nav-header">Game Modes</h2>
-    <a class="index-nav-link" href="/modes/single">Single</a>
-    <a class="index-nav-link" href="/modes/double">Double</a>
-    <a class="index-nav-link" href="/modes/couple">Couple</a>
-    <a class="index-nav-link" href="/modes/solo">Solo <br />(6-panel)</a>
-    <a class="index-nav-link" href="/modes/3panel">3-Panel</a>
-    <a class="index-nav-link" href="/modes/techno"
-      >TechnoMotion <br />(8-panel)</a
-    >
-
-    <h2 class="index-nav-header">All</h2>
-    <a class="index-nav-link wide" href="/averages">Averages</a>
-
-    <h2 class="index-nav-header">Other</h2>
-    <a class="index-nav-link wide" href="/maintenance">Maintenance</a>
+  <div class="mix-list">
+    {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
+    <p>No mixes found.</p>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

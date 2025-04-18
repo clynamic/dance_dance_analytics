@@ -7,42 +7,11 @@
   height: 100%;
 }
 
-.index-nav-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-
-  max-width: 600px;
-
-  margin: 0 auto;
-  gap: 16px;
-}
-
-.index-nav-header {
-  grid-column: span 3;
-
-  font-size: 1.2rem;
-}
-
-.index-nav-link {
+.mix-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 
-  height: 60px;
+  width: 600px;
 
-  padding: 8px;
-
-  background: var(--ddr-pink);
-  color: white;
-  border-radius: var(--border-radius);
-
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.2rem;
-
-  cursor: pointer;
-}
-
-.index-nav-link.wide {
-  grid-column: span 3;
+  gap: 1rem;
 }

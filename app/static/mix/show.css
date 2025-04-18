@@ -1,0 +1,27 @@
+.mix-show {
+  padding: 2rem;
+  color: var(--foreground-color);
+}
+
+.mix-show-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mix-banner {
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  background-color: var(--surface-color);
+}
+
+.mix-info h1 {
+  margin-bottom: 0.5rem;
+}
+
+.mix-meta {
+  color: var(--muted-text);
+  font-size: 0.95rem;
+}

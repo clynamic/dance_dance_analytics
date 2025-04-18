@@ -15,7 +15,9 @@ class SimfileRecord(db.Model):
     base_info = db.relationship(
         "SongRecord", back_populates="simfile", uselist=False, cascade="all, delete"
     )
-    charts = db.relationship("ChartRecord", backref="simfile", cascade="all, delete")
+    charts = db.relationship(
+        "ChartRecord", back_populates="simfile", cascade="all, delete"
+    )
 
     @classmethod
     def from_string(cls, simfile_text: str) -> "SimfileRecord":

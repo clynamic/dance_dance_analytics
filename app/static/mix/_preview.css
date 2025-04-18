@@ -1,0 +1,59 @@
+.mix-preview {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+
+  box-shadow: var(--box-shadow);
+
+  transition: background 0.2s ease-in-out;
+}
+
+.mix-preview:hover {
+  background: var(--interact-color);
+}
+
+.mix-banner {
+  width: 128px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.mix-info {
+  flex: 1;
+}
+
+.mix-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--foreground-color);
+}
+
+.mix-meta {
+  color: var(--foreground-color-muted);
+  font-size: 0.9rem;
+}
+
+.mix-song-count {
+  color: var(--foreground-color);
+
+  font-weight: bold;
+  text-align: center;
+}
+
+.song-count-number,
+.song-count-label {
+  display: block;
+}
+
+.song-count-label {
+  font-size: 0.8rem;
+  color: var(--foreground-color-muted);
+}

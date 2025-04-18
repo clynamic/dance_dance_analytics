@@ -2,16 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Dance Dance Analytics{% endblock %}</title>
+    <title>{% block title %}Analytics{% endblock %} - DDA</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='reset.css') }}"
+    />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='layout.css') }}"
     />
     {% block head %}{% endblock %}
   </head>
   <body>
     <header>
-      <h1>DDA</h1>
+      <h1 class="link-wrapper">
+        <a href="{{ url_for('web.index') }}" title="Dance Dance Analytis"
+          >DDA</a
+        >
+      </h1>
     </header>
 
     <main>{% block content %}{% endblock %}</main>

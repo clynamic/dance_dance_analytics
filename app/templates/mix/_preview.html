@@ -1,0 +1,29 @@
+<a
+  href="{{ url_for('web.mix_web.show', id=mix.slug) }}"
+  class="link-wrapper mix-preview-link"
+  title="{{ mix.title }}"
+>
+  <div class="mix-preview">
+    {% if mix.banner %}
+    <img
+      class="mix-banner"
+      src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+      alt="Banner"
+    />
+    {% else %}
+    <div class="mix-banner placeholder">No Banner</div>
+    {% endif %}
+
+    <div class="mix-info">
+      <h3 class="mix-title">{{ mix.title }}</h3>
+      <p class="mix-meta">
+        {{ mix.release.year }} - {{ mix.system }} - {{ mix.region }}
+      </p>
+    </div>
+
+    <div class="mix-song-count">
+      <span class="song-count-number">{{ mix.song_count or "No" }}</span>
+      <span class="song-count-label">songs</span>
+    </div>
+  </div>
+</a>

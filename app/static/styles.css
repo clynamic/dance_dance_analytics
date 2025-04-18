@@ -6,12 +6,18 @@
 
   --background-color: #122739;
   --surface-color: #1e2a47;
+  --interact-color: #365d80;
   --foreground-color: #ffffff;
+  --foreground-color-muted: #999999;
 
   --font-family: "Poppins", sans-serif;
+
+  --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 body {
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
 
@@ -27,21 +33,6 @@ body {
   font-family: var(--font-family);
 }
 
-body > header {
-  padding: 8px;
-
-  background: var(--surface-color);
-  color: white;
-
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-
-  font-size: 1rem;
-}
-
-body > main {
-  flex: 1;
-}
-
 h1,
 h2,
 h3,
@@ -52,7 +43,56 @@ h6 {
   padding: 0;
 }
 
-button {
+input {
+  height: 24px;
+
+  padding: 4px 8px;
+
+  background: var(--interact-color);
+  color: var(--foreground-color);
+
   border: none;
   border-radius: var(--border-radius);
+}
+
+button {
+  padding: 8px 16px;
+
+  background: var(--interact-color);
+  color: var(--foreground-color);
+
+  border: none;
+  border-radius: var(--border-radius);
+
+  cursor: pointer;
+
+  transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+  background: var(--ddr-pink);
+}
+
+.link-wrapper,
+.link-wrapper a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+.link-wrapper:visited,
+.link-wrapper a:visited {
+  color: currentColor;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  margin-bottom: 16px;
+}
+
+.form-field input {
+  width: 100%;
 }

@@ -1,0 +1,26 @@
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mix-card {
+  width: 600px;
+  max-width: 100%;
+
+  padding: 16px;
+
+  background: var(--surface-color);
+  box-shadow: var(--box-shadow);
+
+  border-radius: var(--border-radius);
+}
+
+#mix-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 1rem;
+}

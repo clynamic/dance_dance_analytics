@@ -10,6 +10,9 @@ class SongRecord(db.Model):
         "SimfileRecord", back_populates="base_info", uselist=False
     )
 
+    mix_id = db.Column(db.Uuid, db.ForeignKey("mix_records.id"), nullable=False)
+    mix = db.relationship("MixRecord", back_populates="songs")
+
     title = db.Column(db.Text, nullable=True)
     artist = db.Column(db.Text, nullable=True)
     title_translit = db.Column(db.Text, nullable=True)

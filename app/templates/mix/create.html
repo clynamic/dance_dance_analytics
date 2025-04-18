@@ -1,0 +1,64 @@
+{% extends "layout.html" %} {% block title %}Create Mix{% endblock %} {% block
+head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='mix/create.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="mix-card">
+  <form id="mix-form">
+    <div class="form-field">
+      <label for="banner">Banner Image</label>
+      <input type="file" id="banner" name="banner" accept="image/*" required />
+    </div>
+
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required />
+    </div>
+
+    <div class="form-field">
+      <label for="system">System</label>
+      <input type="text" id="system" name="system" required />
+    </div>
+
+    <div class="form-field">
+      <label for="region">Region</label>
+      <input type="text" id="region" name="region" required />
+    </div>
+
+    <div class="form-field">
+      <label for="release">Release Date</label>
+      <input type="date" id="release" name="release" required />
+    </div>
+
+    <button type="submit">Create Mix</button>
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  document.getElementById("mix-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById("mix-form");
+    const formData = new FormData(form);
+
+    const response = await fetch("/api/mix/create.json", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer {{ api_key }}", // If needed
+      },
+      body: formData,
+    });
+
+    const result = await response.json();
+    document.getElementById("result").innerText = JSON.stringify(
+      result,
+      null,
+      2
+    );
+  });
+</script>
+{% endblock %}

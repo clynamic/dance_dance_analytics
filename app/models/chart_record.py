@@ -7,7 +7,7 @@ class ChartRecord(db.Model):
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)
     simfile_id = db.Column(db.Uuid, db.ForeignKey("simfile_records.id"), nullable=False)
-    simfile = db.relationship("SimfileRecord", backref="charts")
+    simfile = db.relationship("SimfileRecord", back_populates="charts")
     single_chart = db.relationship(
         "SingleChartRecord",
         back_populates="chart",

@@ -1,0 +1,14 @@
+body > header {
+  padding: 8px;
+
+  background: var(--surface-color);
+  color: white;
+
+  box-shadow: var(--box-shadow);
+
+  font-size: 1rem;
+}
+
+body > main {
+  flex: 1;
+}
