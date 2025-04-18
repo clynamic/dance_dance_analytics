@@ -1,0 +1,81 @@
+<form id="mix-form" enctype="multipart/form-data">
+  <div class="form-field">
+    <label for="banner">Banner Image</label>
+
+    <label
+      for="banner"
+      class="banner-preview-wrapper"
+      id="banner-preview-wrapper"
+    >
+      <div class="banner-placeholder" id="banner-placeholder">
+        Upload Banner
+      </div>
+      <img id="banner-preview" src="" alt="Preview" style="display: none" />
+    </label>
+
+    <input
+      type="file"
+      id="banner"
+      name="banner"
+      accept="image/*"
+      style="display: none"
+      {%
+      if
+      required
+      %}required{%
+      endif
+      %}
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      required
+      placeholder="Mix Title by Konami"
+      value="{{ mix.title if mix else '' }}"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="system">System</label>
+    <input
+      type="text"
+      id="system"
+      name="system"
+      required
+      placeholder="Game System"
+      value="{{ mix.system if mix else '' }}"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="region">Region</label>
+    <input
+      type="text"
+      id="region"
+      name="region"
+      required
+      placeholder="Region"
+      value="{{ mix.region if mix else '' }}"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="release">Release Date</label>
+    <input
+      type="date"
+      id="release"
+      name="release"
+      required
+      value="{{ mix.release if mix else '' }}"
+    />
+  </div>
+
+  <button type="submit">{{ action_label or 'Submit' }}</button>
+</form>
+
+<div id="result"></div>

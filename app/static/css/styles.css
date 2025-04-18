@@ -6,6 +6,7 @@
 
   --background-color: #122739;
   --surface-color: #1e2a47;
+  --surface-variant: #2a3a55;
   --interact-color: #365d80;
   --foreground-color: #ffffff;
   --foreground-color-muted: #999999;
@@ -44,7 +45,7 @@ h6 {
 }
 
 input {
-  height: 24px;
+  height: 32px;
 
   padding: 4px 8px;
 
@@ -53,10 +54,22 @@ input {
 
   border: none;
   border-radius: var(--border-radius);
+
+  outline: 2px solid transparent;
+
+  transition: background 0.2s ease-in-out, outline 0.2s ease-in-out;
+}
+
+input:hover {
+  outline: 2px solid var(--ddr-pink);
+}
+
+input:focus {
+  outline: 2px solid var(--ddr-pink);
 }
 
 button {
-  padding: 8px 16px;
+  padding: 6px 12px;
 
   background: var(--interact-color);
   color: var(--foreground-color);
@@ -66,11 +79,17 @@ button {
 
   cursor: pointer;
 
-  transition: background 0.2s ease-in-out;
+  outline: 2px solid transparent;
+
+  transition: background 0.2s ease-in-out, outline 0.2s ease-in-out;
 }
 
 button:hover {
   background: var(--ddr-pink);
+}
+
+button:focus {
+  outline: 2px solid var(--ddr-pink);
 }
 
 .link-wrapper,
@@ -91,6 +110,11 @@ button:hover {
   width: 100%;
 
   margin-bottom: 16px;
+}
+
+.form-field label {
+  color: var(--foreground-color-muted);
+  font-size: 0.9rem;
 }
 
 .form-field input {
