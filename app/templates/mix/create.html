@@ -8,7 +8,8 @@ head %}
   rel="stylesheet"
   href="{{ url_for('static', filename='css/mix/_form.css') }}"
 />
-{% endblock %} {% block content %}
+<script src="{{ url_for('static', filename='js/csrf.js') }}"></script>
+{% endblock %} {% block header %} {% endblock %} {% block content %}
 <div class="content">
   <h2>Create Mix</h2>
   <div class="mix-card">{% include "mix/_form.html" %}</div>
@@ -26,7 +27,8 @@ head %}
     try {
       const response = await fetch("/api/mix/create.json", {
         method: "POST",
-        body: formData,
+        body: getCSRFFormData(formData),
+        ...getCSRFHeaders(),
       });
 
       const result = await response.json();

@@ -9,7 +9,7 @@ def is_authorized_request() -> bool:
     if session.get("is_admin"):
         if request.method in {"POST", "PUT", "PATCH", "DELETE"} and wants_json():
             try:
-                validate_csrf(request.headers.get("X-CSRFToken"))
+                validate_csrf(request.headers.get("X-CSRF-Token"))
             except CSRFError:
                 return False
         return True

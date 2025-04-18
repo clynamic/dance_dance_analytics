@@ -1,4 +1,6 @@
 from flask import Flask
+
+from app.utils.csrf import init_csrf_cookie
 from .database import db
 from .api.routes import api_bp
 from .web.views import web_bp
@@ -12,6 +14,7 @@ from .web.auth.views import auth_web_bp
 def create_app():
     app = Flask(__name__)
     app.config.from_object("config.Config")
+    init_csrf_cookie(app)
 
     db.init_app(app)
     with app.app_context():
