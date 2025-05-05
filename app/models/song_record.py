@@ -13,6 +13,11 @@ class SongRecord(db.Model):
     mix_id = db.Column(db.Uuid, db.ForeignKey("mix_records.id"), nullable=False)
     mix = db.relationship("MixRecord", back_populates="songs")
 
+    banner_id = db.Column(
+        db.Uuid, db.ForeignKey("banner_records.id"), nullable=True, unique=True
+    )
+    banner = db.relationship("BannerRecord", back_populates="song", uselist=False)
+
     title = db.Column(db.Text, nullable=True)
     slug = db.Column(db.Text, nullable=False, unique=True)
     artist = db.Column(db.Text, nullable=True)
@@ -22,9 +27,12 @@ class SongRecord(db.Model):
     samplestart = db.Column(db.Float, nullable=True)
     samplelength = db.Column(db.Float, nullable=True)
     displaybpm = db.Column(db.Text, nullable=True)
-
     stops = db.Column(db.Text, nullable=True)
     bpms = db.Column(db.Text, nullable=True)
+
+    charts = db.relationship(
+        "ChartRecord", back_populates="song", cascade="all, delete"
+    )
 
     @classmethod
     def from_sim(cls, sim: Simfile) -> "SongRecord":

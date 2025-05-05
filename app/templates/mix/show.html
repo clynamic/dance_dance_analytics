@@ -1,8 +1,12 @@
-{% extends "layout.html" %} {% block title %}{{ mix.title }}{% endblock %} {%
+{% extends "layout.html" %} {% block title %} {{ mix.title }} {% endblock %} {%
 block head %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/mix/show.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/song/_preview.css') }}"
 />
 {% endblock %} {% block content %}
 <div class="mix-show">
@@ -19,6 +23,12 @@ block head %}
       <p>{{ mix.release.year }} – {{ mix.system }} – {{ mix.region }}</p>
       <p class="mix-meta">{{ mix.song_count }} songs</p>
     </div>
+  </div>
+
+  <div class="mix-song-list">
+    {% for song in mix.songs %} {% include "song/_preview.html" %} {% else %}
+    <p>No songs in this mix yet.</p>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

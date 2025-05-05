@@ -21,15 +21,21 @@ block head %}
     </div>
 
     <div class="form-field">
-      <label for="sm-files" class="file-label">Choose .sm Files</label>
-      <input
-        type="file"
-        id="sm-files"
-        name="files"
-        multiple
-        accept=".sm"
-        hidden
-      />
+      <label id="drop-label" class="file-upload-wrapper">
+        <input
+          type="file"
+          id="sm-files"
+          name="files"
+          multiple
+          accept=".sm"
+          hidden
+        />
+
+        <div class="file-upload-placeholder">
+          <i class="fas fa-file-arrow-up"></i>
+          <span>Click or drag .sm files here</span>
+        </div>
+      </label>
     </div>
 
     <div id="file-list"></div>
@@ -39,21 +45,33 @@ block head %}
 </div>
 
 <script>
+  const dropLabel = document.getElementById("drop-label");
   const input = document.getElementById("sm-files");
   const list = document.getElementById("file-list");
   const form = document.getElementById("upload-form");
 
   const fileData = [];
 
-  document
-    .querySelector(".file-label")
-    .addEventListener("click", () => input.click());
+  dropLabel.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropLabel.classList.add("dragover");
+  });
+  dropLabel.addEventListener("dragleave", () => {
+    dropLabel.classList.remove("dragover");
+  });
+  dropLabel.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropLabel.classList.remove("dragover");
+    handleFiles(e.dataTransfer.files);
+  });
 
-  input.addEventListener("change", () => {
+  input.addEventListener("change", () => handleFiles(input.files));
+
+  function handleFiles(files) {
     list.innerHTML = "";
     fileData.length = 0;
 
-    for (const file of input.files) {
+    for (const file of files) {
       const entry = document.createElement("div");
       entry.className = "file-entry";
       entry.textContent = file.name + " - Pending";
@@ -61,7 +79,7 @@ block head %}
 
       fileData.push({ file, element: entry });
     }
-  });
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -81,7 +99,7 @@ block head %}
 
       const result = await response.json();
       if (response.ok) {
-        element.textContent = `${file.name} - OK (ID: ${result.id})`;
+        element.textContent = `${file.name} - OK (ID: ${result.data.id})`;
       } else {
         element.textContent = `${file.name} - Error: ${result.message}`;
       }

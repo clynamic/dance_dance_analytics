@@ -9,3 +9,4 @@ class BannerRecord(db.Model):
     blob = db.Column(db.LargeBinary, nullable=False)
 
     mix = db.relationship("MixRecord", back_populates="banner", uselist=False)
+    song = db.relationship("SongRecord", back_populates="banner", uselist=False)

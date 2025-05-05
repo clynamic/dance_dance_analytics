@@ -1,12 +1,21 @@
 .mix-show {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+
+  padding: var(--space-xl);
   color: var(--foreground-color);
 }
 
 .mix-show-header {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: var(--space-xl);
+  width: 800px;
+  margin-bottom: var(--space-xl);
 }
 
 .mix-banner {
@@ -18,10 +27,16 @@
 }
 
 .mix-info h1 {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-m);
 }
 
 .mix-meta {
   color: var(--muted-text);
   font-size: 0.95rem;
+}
+
+.mix-song-list {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
 }

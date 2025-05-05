@@ -1,0 +1,33 @@
+<a
+  href="{{ url_for('web.song_web.show', id=song.slug) }}"
+  class="link-wrapper song-preview-link"
+  title="{{ song.title }}"
+>
+  <div class="song-preview">
+    {% if song.banner %}
+    <img
+      class="song-banner"
+      src="{{ url_for('assets_api.get_banner', id=song.banner_id) }}"
+      alt="Banner"
+    />
+    {% else %}
+    <div class="song-banner placeholder">
+      <i class="fas fa-image"></i>
+    </div>
+    {% endif %}
+
+    <div class="song-info">
+      <h3 class="song-title">{{ song.title }}</h3>
+      <p class="song-meta">
+        {{ song.artist or "Unknown Artist" }} – {{ song.displaybpm or "?" }} BPM
+      </p>
+    </div>
+
+    <div class="song-chart-count">
+      <span class="chart-count-number">
+        {{ song.charts|length if song.charts else 0 }}
+      </span>
+      <span class="chart-count-label">charts</span>
+    </div>
+  </div>
+</a>

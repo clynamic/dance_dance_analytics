@@ -6,8 +6,10 @@ class ChartRecord(db.Model):
     __tablename__ = "chart_records"
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)
-    simfile_id = db.Column(db.Uuid, db.ForeignKey("simfile_records.id"), nullable=False)
-    simfile = db.relationship("SimfileRecord", back_populates="charts")
+
+    song_id = db.Column(db.Uuid, db.ForeignKey("song_records.id"), nullable=False)
+    song = db.relationship("SongRecord", back_populates="charts")
+
     single_chart = db.relationship(
         "SingleChartRecord",
         back_populates="chart",

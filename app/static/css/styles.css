@@ -16,19 +16,28 @@
   --font-family: "Poppins", sans-serif;
 
   --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-ms: 12px;
+  --space-m: 16px;
+  --space-ml: 20px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
 }
 
 body {
-  box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
-
-  height: 100vh;
+  box-sizing: border-box;
   width: 100vw;
 
-  margin: 0;
+  height: 100vh;
   padding: 0;
+
+  margin: 0;
 
   background: var(--background-color);
   color: var(--foreground-color);
@@ -42,8 +51,8 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 input {
@@ -51,10 +60,10 @@ input {
 
   padding: 4px 8px;
 
+  border: none;
+
   background: var(--interact-color);
   color: var(--foreground-color);
-
-  border: none;
   border-radius: var(--border-radius);
 
   outline: 2px solid transparent;
@@ -73,10 +82,10 @@ input:focus {
 button {
   padding: 6px 12px;
 
+  border: none;
+
   background: var(--interact-color);
   color: var(--foreground-color);
-
-  border: none;
   border-radius: var(--border-radius);
 
   cursor: pointer;
@@ -96,8 +105,8 @@ button:focus {
 
 .link-wrapper,
 .link-wrapper a {
-  text-decoration: none;
   color: currentColor;
+  text-decoration: none;
 }
 
 .link-wrapper:visited,
