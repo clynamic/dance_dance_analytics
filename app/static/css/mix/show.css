@@ -10,12 +10,33 @@
 }
 
 .mix-show-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
   gap: var(--space-xl);
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 600px) {
+  .mix-show-header {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    text-align: center;
+    width: 100%;
+  }
+
+  .mix-banner {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .mix-show-header {
+    row-gap: var(--space-l);
+  }
 }
 
 .mix-banner {
@@ -38,5 +59,6 @@
 .mix-song-list {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
 }
