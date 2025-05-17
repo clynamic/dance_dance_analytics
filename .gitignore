@@ -33,3 +33,6 @@ instance/
 
 # Compiled static files (if any)
 app/static/dist/
+
+# Other files
+sample/

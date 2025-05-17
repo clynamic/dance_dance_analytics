@@ -3,6 +3,8 @@ from slugify import slugify
 from simfile import Simfile
 from sqlalchemy import inspect, event
 
+from app.models.chart_record import ChartRecord
+
 
 class SongRecord(db.Model):
     __tablename__ = "song_records"
@@ -46,6 +48,7 @@ class SongRecord(db.Model):
             displaybpm=sim.displaybpm,
             stops=str(sim.stops) if sim.stops else None,
             bpms=str(sim.bpms) if sim.bpms else None,
+            charts=[ChartRecord.from_sim(chart) for chart in sim.charts],
         )
 
     @staticmethod

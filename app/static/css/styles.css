@@ -103,6 +103,42 @@ button:focus {
   outline: 2px solid var(--ddr-pink);
 }
 
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: var(--surface-color);
+  color: var(--foreground-color);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: var(--space-s) var(--space-m);
+  border: 1px solid var(--surface-variant);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23ffffff' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right var(--space-m) center;
+  background-size: 1em;
+  padding-right: 2.5em;
+}
+
+select:focus {
+  border-color: var(--ddr-pink);
+}
+
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .link-wrapper,
 .link-wrapper a {
   color: currentColor;

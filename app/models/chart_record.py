@@ -1,5 +1,6 @@
 import uuid
 from app.database import db
+from simfile import Simfile
 
 
 class ChartRecord(db.Model):
@@ -21,3 +22,13 @@ class ChartRecord(db.Model):
     description = db.Column(db.Text, nullable=True)
     difficulty = db.Column(db.Text)
     rating = db.Column(db.Integer)
+
+    @classmethod
+    def from_sim(cls, sim: Simfile) -> "ChartRecord":
+        print(sim)
+        return cls(
+            stepstype=sim.stepstype,
+            description=sim.description,
+            difficulty=sim.difficulty,
+            rating=0,  # TODO: how do we get this information? lib only has "radarvalues"?
+        )

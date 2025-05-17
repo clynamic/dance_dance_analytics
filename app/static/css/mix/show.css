@@ -1,7 +1,6 @@
 .mix-show {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   height: 100%;
@@ -13,13 +12,14 @@
 .mix-show-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-xl);
   width: 800px;
   margin-bottom: var(--space-xl);
 }
 
 .mix-banner {
-  width: 160px;
+  width: 270px;
   height: auto;
   border-radius: 8px;
   object-fit: contain;

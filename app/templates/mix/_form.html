@@ -37,6 +37,7 @@
       required
       placeholder="Mix Title by Konami"
       value="{{ mix.title if mix else '' }}"
+      autocomplete="off"
     />
   </div>
 
@@ -49,11 +50,13 @@
       required
       placeholder="Game System"
       value="{{ mix.system if mix else '' }}"
+      autocomplete="off"
     />
-    <datalist id="system-options">
+    <auto-complete>
       {% for system in system_suggestions %}
-      <option value="{{ system }}">{% endfor %}</option>
-    </datalist>
+      <option value="{{ system }}"></option>
+      {% endfor %}
+    </auto-complete>
   </div>
 
   <div class="form-field">
@@ -65,11 +68,13 @@
       required
       placeholder="Region"
       value="{{ mix.region if mix else '' }}"
+      autocomplete="off"
     />
-    <datalist id="region-options">
+    <auto-complete>
       {% for region in region_suggestions %}
-      <option value="{{ region }}">{% endfor %}</option>
-    </datalist>
+      <option value="{{ region }}"></option>
+      {% endfor %}
+    </auto-complete>
   </div>
 
   <div class="form-field">

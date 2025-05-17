@@ -1,0 +1,44 @@
+.auto-complete {
+  position: relative;
+  display: block;
+}
+
+.auto-complete option {
+  display: none;
+}
+
+.ac-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-xs);
+  padding: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+
+  background: var(--surface-color);
+  border: 1px solid var(--surface-variant);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+
+  z-index: 1000;
+}
+
+.ac-item {
+  padding: var(--space-s) var(--space-m);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--foreground-color);
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.ac-item:hover,
+.ac-item.active {
+  background: var(--interact-color);
+  color: var(--foreground-color);
+}
