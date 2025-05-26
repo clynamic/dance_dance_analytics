@@ -102,6 +102,15 @@ button,
   transition: background 0.2s ease-in-out, outline 0.2s ease-in-out;
 }
 
+button .fas,
+button .far,
+button .fa,
+.button .fas,
+.button .far,
+.button .fa {
+  margin: 0 var(--space-s);
+}
+
 button:hover,
 .button:hover {
   background: var(--ddr-pink);

@@ -1,0 +1,73 @@
+{% extends "layout.html" %} {% block title %}Edit Mix{% endblock %} {% block
+head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/mix/create.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/mix/_form.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/common/autocomplete.css') }}"
+/>
+<script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
+<script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
+{% endblock %} {% block content %}
+<div class="content">
+  <h2>Edit Mix</h2>
+  <div class="mix-card">{% include "mix/_form.html" %}</div>
+</div>
+
+<script>
+  document.getElementById("mix-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById("mix-form");
+    const formData = new FormData(form);
+    const resultEl = document.getElementById("result");
+    resultEl.innerText = "";
+
+    try {
+      const response = await fetch("/api/mix/{{ mix.id }}.json", {
+        method: "PATCH",
+        body: getCSRFFormData(formData),
+        ...getCSRFHeaders(),
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        window.location.href = `/mix/${result.data.slug}`;
+      } else {
+        resultEl.innerText =
+          result.message +
+          (result.errors ? "\n" + JSON.stringify(result.errors, null, 2) : "");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      resultEl.innerText = "An unexpected error occurred. Please try again.";
+    }
+  });
+
+  document.getElementById("banner").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    const preview = document.getElementById("banner-preview");
+    const placeholder = document.getElementById("banner-placeholder");
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = "block";
+        placeholder.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.style.display = "none";
+      placeholder.style.display = "flex";
+    }
+  });
+</script>
+{% endblock %}

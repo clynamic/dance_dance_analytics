@@ -7,10 +7,26 @@
       class="banner-preview-wrapper"
       id="banner-preview-wrapper"
     >
+      {% if mix and mix.banner_id %}
+      <img
+        id="banner-preview"
+        src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+        alt="Preview"
+        style="display: block"
+      />
+      <div
+        class="banner-placeholder"
+        id="banner-placeholder"
+        style="display: none"
+      >
+        Upload Banner
+      </div>
+      {% else %}
       <div class="banner-placeholder" id="banner-placeholder">
         Upload Banner
       </div>
       <img id="banner-preview" src="" alt="Preview" style="display: none" />
+      {% endif %}
     </label>
 
     <input

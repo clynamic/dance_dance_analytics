@@ -1,7 +1,7 @@
 import uuid
 
 from slugify import slugify
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from app.database import db
 from app.models.song_record import SongRecord
 from sqlalchemy import inspect, event
@@ -31,6 +31,18 @@ class MixRecord(db.Model):
             .filter_by(mix_id=self.id)
             .scalar()
         )
+
+    @classmethod
+    def get(cls, identifier):
+        uuid_obj = None
+        try:
+            uuid_obj = uuid.UUID(identifier)
+        except (ValueError, TypeError):
+            pass
+
+        return cls.query.filter(
+            or_(cls.id == uuid_obj if uuid_obj else False, cls.slug == identifier)
+        ).first()
 
     @classmethod
     def _distinct_column_values(cls, column):

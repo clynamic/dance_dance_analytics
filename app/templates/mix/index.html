@@ -7,15 +7,19 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/mix/_preview.css') }}"
 />
-{% endblock %} {% block sidebar %} {% include "_sidebar.html" %}
+{% endblock %} {% block sidebar %} {% include "_sidebar.html" %} {% if
+session.get("is_admin") %}
 
 <hr />
 
 <div class="sidebar-actions">
-  <a href="{{ url_for('web.mix_web.create') }}" class="button">+ New Mix</a>
+  <a href="{{ url_for('web.mix_web.create') }}" class="button">
+    <i class="fa fa-plus"></i>
+    New Mix</a
+  >
 </div>
 
-{% endblock %} {% block content %}
+{% endif %} {% endblock %} {% block content %}
 <div class="index-page">
   <div class="mix-list">
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
