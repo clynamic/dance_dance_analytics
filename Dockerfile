@@ -4,7 +4,5 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 COPY . .
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
 EXPOSE 5000
 ENTRYPOINT ["./entrypoint.sh"]
