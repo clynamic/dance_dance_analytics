@@ -1,0 +1,58 @@
+<form
+  id="mix-search-form"
+  method="get"
+  action="{{ url_for('web.mix_web.index') }}"
+>
+  <div class="form-field">
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      placeholder="Mix Title"
+      value="{{ request.args.get('title', '') }}"
+      autocomplete="off"
+    />
+    <auto-complete>
+      {% for suggestion in title_suggestions %}
+      <option value="{{ suggestion }}"></option>
+      {% endfor %}
+    </auto-complete>
+  </div>
+
+  <div class="form-field">
+    <label for="system">System</label>
+    <input
+      type="text"
+      id="system"
+      name="system"
+      placeholder="System"
+      value="{{ request.args.get('system', '') }}"
+      autocomplete="off"
+    />
+    <auto-complete>
+      {% for suggestion in system_suggestions %}
+      <option value="{{ suggestion }}"></option>
+      {% endfor %}
+    </auto-complete>
+  </div>
+
+  <div class="form-field">
+    <label for="region">Region</label>
+    <input
+      type="text"
+      id="region"
+      name="region"
+      placeholder="Region"
+      value="{{ request.args.get('region', '') }}"
+      autocomplete="off"
+    />
+    <auto-complete>
+      {% for suggestion in region_suggestions %}
+      <option value="{{ suggestion }}"></option>
+      {% endfor %}
+    </auto-complete>
+  </div>
+
+  <button type="submit">Search</button>
+</form>

@@ -7,6 +7,15 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/mix/_preview.css') }}"
 />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/mix/_search.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/common/autocomplete.css') }}"
+/>
+<script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
 {% endblock %} {% block sidebar %} {% include "_sidebar.html" %} {% if
 session.get("is_admin") %}
 
@@ -19,7 +28,10 @@ session.get("is_admin") %}
   >
 </div>
 
-{% endif %} {% endblock %} {% block content %}
+{% endif %}
+
+<hr />
+{% include "mix/_search.html" %} {% endblock %} {% block content %}
 <div class="index-page">
   <div class="mix-list">
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}

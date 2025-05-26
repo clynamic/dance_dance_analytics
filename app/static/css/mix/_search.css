@@ -1,0 +1,8 @@
+#mix-search-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#mix-search-form button[type="submit"] {
+  align-self: flex-end;
+}

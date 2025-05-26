@@ -1,6 +1,7 @@
 from flask import Flask
 
 from app.utils.csrf import init_csrf_cookie
+from app.utils.empty_query import strip_empty_query_params
 from .database import db
 from .api.routes import api_bp
 from .web.views import web_bp
@@ -17,6 +18,10 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("config.Config")
     init_csrf_cookie(app)
+
+    @app.before_request
+    def _():
+        return strip_empty_query_params()
 
     db.init_app(app)
     with app.app_context():
