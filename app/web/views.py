@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request
-from flask import render_template
-from app.models.mix_record import MixRecord
-from app.database import db
+from flask import render_template, redirect, url_for
 from app.utils.responses import json_error
 
 web_bp = Blueprint("web", __name__)
@@ -21,5 +19,4 @@ def not_found(_):
 
 @web_bp.route("/")
 def index():
-    mixes = db.session.query(MixRecord).order_by(MixRecord.release.desc()).all()
-    return render_template("home/index.html", mixes=mixes)
+    return redirect(url_for("web.mix_web.index"))

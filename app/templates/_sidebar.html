@@ -1,0 +1,32 @@
+<div class="sidebar-header">
+  <h1 class="link-wrapper">
+    <a href="{{ url_for('web.index') }}" title="Dance Dance Analytics">DDA</a>
+  </h1>
+</div>
+
+<nav class="nav-links">
+  <a href="{{ url_for('web.mix_web.index') }}">
+    <i class="fas fa-music"></i>
+    Mixes
+  </a>
+  <a href="{{ url_for('web.song_web.index') }}">
+    <i class="fas fa-compact-disc"></i>
+    Songs
+  </a>
+  <a href="/">
+    <i class="fas fa-play"></i>
+    Charts
+  </a>
+  {% if session.get("is_admin") %}
+  <!-- Admin only page design? -->
+  <a href="/">
+    <i class="fas fa-user-shield"></i>
+    Admin
+  </a>
+  {% else %}
+  <a href="{{ url_for('web.auth_web.login_page') }}">
+    <i class="fas fa-sign-in-alt"></i>
+    Login
+  </a>
+  {% endif %}
+</nav>

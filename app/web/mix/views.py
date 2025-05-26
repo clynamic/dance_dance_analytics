@@ -1,15 +1,22 @@
 from flask import Blueprint, render_template
 from flask import Blueprint, render_template, abort
 from app.api.auth.guard import require_admin
+from app.database import db
 from app.models.mix_record import MixRecord
 import uuid
 
 mix_web_bp = Blueprint("mix_web", __name__)
 
 
+@mix_web_bp.route("/")
+def index():
+    mixes = db.session.query(MixRecord).order_by(MixRecord.release.desc()).all()
+    return render_template("mix/index.html", mixes=mixes)
+
+
 @mix_web_bp.route("/create")
 @require_admin
-def create_mix_page():
+def create():
     return render_template(
         "mix/create.html",
         region_suggestions=MixRecord.get_region_autocomplete(),

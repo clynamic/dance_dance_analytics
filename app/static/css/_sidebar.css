@@ -1,0 +1,49 @@
+.app-sidebar {
+  width: 250px;
+  height: 100vh;
+  background: var(--surface-color);
+  box-shadow: var(--box-shadow);
+  border-right: 1px solid var(--variant-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.sidebar-header h1 a {
+  text-decoration: none;
+  color: var(--foreground-color);
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  background: transparent;
+  padding: var(--space-xs) var(--space-s);
+  color: var(--foreground-color-muted);
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a i {
+  min-width: 1.25em;
+}
+
+.nav-links a:hover {
+  background: var(--interact-color);
+  color: var(--foreground-color);
+}
+
+.sidebar-actions button,
+.sidebar-actions .button {
+  width: 100%;
+}

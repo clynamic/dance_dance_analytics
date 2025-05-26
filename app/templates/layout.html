@@ -18,7 +18,7 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/_header.css') }}"
+      href="{{ url_for('static', filename='css/_sidebar.css') }}"
     />
     <link
       rel="stylesheet"
@@ -27,10 +27,16 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     {% block head %}{% endblock %}
   </head>
   <body>
-    {% include "_header.html" %}
+    <aside class="app-sidebar">
+      {% block sidebar %} {% include "_sidebar.html" %} {% endblock %}
+    </aside>
 
     <main>{% block content %}{% endblock %}</main>
   </body>
