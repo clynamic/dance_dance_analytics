@@ -1,3 +1,5 @@
+import time
+from sqlalchemy.exc import OperationalError
 from flask import Flask
 
 from app.utils.csrf import init_csrf_cookie
@@ -30,7 +32,21 @@ def create_app():
 
     db.init_app(app)
     with app.app_context():
-        db.create_all()
+        retries = 10
+        delay = 5
+        for attempt in range(retries):
+            try:
+                db.create_all()
+                break
+            except OperationalError:
+                print(
+                    f"Database not ready (attempt {attempt + 1}/{retries}), retrying in {delay}s..."
+                )
+                time.sleep(delay)
+        else:
+            raise RuntimeError(
+                f"Database initialization failed after {retries} attempts."
+            )
 
     api_bp.register_blueprint(mix_api_bp, url_prefix="/mix")
     web_bp.register_blueprint(mix_web_bp, url_prefix="/mix")
