@@ -29,10 +29,7 @@
     />
   </head>
   <body>
-    <aside class="app-sidebar">
-      {% block sidebar %} {% include "_sidebar.html" %} {% endblock %}
-    </aside>
-
-    <main>{% block content %}{% endblock %}</main>
+    <aside class="app-sidebar">{% include "_sidebar.html" %}</aside>
+    <main>{% block body %} {% endblock %}</main>
   </body>
 </html>

@@ -1,12 +1,12 @@
 {% extends "layout.html" %} {% block title %}Edit Mix{% endblock %} {% block
-content %}
-<sub-head>
+body %}
+<partial-head>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/mix/create.css') }}"
   />
   <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
-</sub-head>
+</partial-head>
 
 <div class="content">
   <h2>Edit Mix</h2>

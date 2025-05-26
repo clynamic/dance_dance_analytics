@@ -1,19 +1,24 @@
 {% extends "layout.html" %} {% block title %} {{ mix.title }} {% endblock %} {%
-block sidebar %} {% include "_sidebar.html" %} {% if session.get("is_admin") %}
-<hr />
+block body %}
 
-<div class="sidebar-actions">
-  <a href="{{ url_for('web.mix_web.edit', id=mix.slug) }}" class="button">
-    <i class="fas fa-pen"></i> Edit
-  </a>
-</div>
-{% endif %} {% endblock %} {% block content %}
-<sub-head>
+<partial-head>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/mix/show.css') }}"
   />
-</sub-head>
+</partial-head>
+
+<partial-aside class="app-sidebar">
+  {% if session.get("is_admin") %}
+  <hr />
+
+  <div class="sidebar-actions">
+    <a href="{{ url_for('web.mix_web.edit', id=mix.slug) }}" class="button">
+      <i class="fas fa-pen"></i> Edit
+    </a>
+  </div>
+  {% endif %}
+</partial-aside>
 
 <div class="mix-show">
   <div class="mix-show-header">
@@ -37,4 +42,5 @@ block sidebar %} {% include "_sidebar.html" %} {% if session.get("is_admin") %}
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}

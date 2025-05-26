@@ -1,25 +1,28 @@
-{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block sidebar
-%} {% include "_sidebar.html" %} {% if session.get("is_admin") %}
-
-<hr />
-
-<div class="sidebar-actions">
-  <a href="{{ url_for('web.mix_web.create') }}" class="button">
-    <i class="fa fa-plus"></i>
-    New Mix</a
-  >
-</div>
-
-{% endif %}
-
-<hr />
-{% include "mix/_search.html" %} {% endblock %} {% block content %}
-<sub-head>
+{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block body %}
+<partial-head>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/mix/index.css') }}"
   />
-</sub-head>
+</partial-head>
+
+<partial-aside class="app-sidebar">
+  {% if session.get("is_admin") %}
+
+  <hr />
+
+  <div class="sidebar-actions">
+    <a href="{{ url_for('web.mix_web.create') }}" class="button">
+      <i class="fa fa-plus"></i>
+      New Mix</a
+    >
+  </div>
+
+  {% endif %}
+
+  <hr />
+  {% include "mix/_search.html" %}
+</partial-aside>
 
 <div class="index-page">
   <div class="mix-list">
@@ -28,4 +31,5 @@
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}
