@@ -11,6 +11,8 @@
   --foreground-color: #ffffff;
   --foreground-color-muted: #999999;
 
+  --primary-color: var(--ddr-pink);
+
   --error-color: #ff4d4d;
 
   --font-family: "Orbitron", sans-serif;
@@ -72,11 +74,11 @@ input {
 }
 
 input:hover {
-  outline: 2px solid var(--ddr-pink);
+  outline: 2px solid var(--primary-color);
 }
 
 input:focus {
-  outline: 2px solid var(--ddr-pink);
+  outline: 2px solid var(--primary-color);
 }
 
 button,
@@ -113,12 +115,12 @@ button .fa,
 
 button:hover,
 .button:hover {
-  background: var(--ddr-pink);
+  background: var(--primary-color);
 }
 
 button:focus,
 .button:focus {
-  outline: 2px solid var(--ddr-pink);
+  outline: 2px solid var(--primary-color);
 }
 
 select {
@@ -155,7 +157,7 @@ select {
 }
 
 select:focus {
-  border-color: var(--ddr-pink);
+  border-color: var(--primary-color);
 }
 
 select:disabled {

@@ -24,7 +24,7 @@
 }
 
 .file-upload-wrapper:hover {
-  outline: 2px solid var(--ddr-pink);
+  outline: 2px solid var(--primary-color);
 }
 
 .file-upload-placeholder {
