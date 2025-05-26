@@ -1,3 +1,10 @@
+<sub-head>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/song/_preview.css') }}"
+  />
+</sub-head>
+
 <a
   href="{{ url_for('web.song_web.show', id=song.slug) }}"
   class="link-wrapper song-preview-link"
@@ -19,7 +26,7 @@
     <div class="song-info">
       <h3 class="song-title">{{ song.title }}</h3>
       <p class="song-meta">
-        {{ song.artist or "Unknown Artist" }} – {{ song.displaybpm or "?" }} BPM
+        {{ song.artist or "Unknown Artist" }} - {{ song.displaybpm or "?" }} BPM
       </p>
     </div>
 

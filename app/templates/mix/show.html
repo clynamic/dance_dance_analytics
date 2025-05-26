@@ -1,15 +1,5 @@
 {% extends "layout.html" %} {% block title %} {{ mix.title }} {% endblock %} {%
-block head %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/mix/show.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/song/_preview.css') }}"
-/>
-{% endblock %} {% block sidebar %} {% include "_sidebar.html" %} {% if
-session.get("is_admin") %}
+block sidebar %} {% include "_sidebar.html" %} {% if session.get("is_admin") %}
 <hr />
 
 <div class="sidebar-actions">
@@ -18,6 +8,13 @@ session.get("is_admin") %}
   </a>
 </div>
 {% endif %} {% endblock %} {% block content %}
+<sub-head>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/mix/show.css') }}"
+  />
+</sub-head>
+
 <div class="mix-show">
   <div class="mix-show-header">
     {% if mix.banner_id %}

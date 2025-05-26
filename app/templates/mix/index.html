@@ -1,23 +1,5 @@
-{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block head %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/mix/index.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/mix/_preview.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/mix/_search.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/common/autocomplete.css') }}"
-/>
-<script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
-{% endblock %} {% block sidebar %} {% include "_sidebar.html" %} {% if
-session.get("is_admin") %}
+{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block sidebar
+%} {% include "_sidebar.html" %} {% if session.get("is_admin") %}
 
 <hr />
 
@@ -32,6 +14,13 @@ session.get("is_admin") %}
 
 <hr />
 {% include "mix/_search.html" %} {% endblock %} {% block content %}
+<sub-head>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/mix/index.css') }}"
+  />
+</sub-head>
+
 <div class="index-page">
   <div class="mix-list">
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}

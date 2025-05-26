@@ -2,6 +2,7 @@ from flask import Flask
 
 from app.utils.csrf import init_csrf_cookie
 from app.utils.empty_query import strip_empty_query_params
+from app.utils.partials import inject_subheads
 from .database import db
 from .api.routes import api_bp
 from .web.views import web_bp
@@ -22,6 +23,10 @@ def create_app():
     @app.before_request
     def _():
         return strip_empty_query_params()
+
+    @app.after_request
+    def _(response):
+        return inject_subheads(response)
 
     db.init_app(app)
     with app.app_context():

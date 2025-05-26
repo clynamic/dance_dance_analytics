@@ -1,11 +1,13 @@
 {% extends "layout.html" %} {% block title %}Upload Simfiles{% endblock %} {%
-block head %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/song/create.css') }}"
-/>
-<script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
-{% endblock %} {% block content %}
+block content %}
+<sub-head>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/song/create.css') }}"
+  />
+  <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
+</sub-head>
+
 <div class="upload-card">
   <h2>Upload Simfiles</h2>
   <form id="upload-form">
