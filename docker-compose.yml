@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  web:
+  dance-dance-analytics-web:
     build: .
-    container_name: dance_dance_analytics_web
+    container_name: dance-dance-analytics-web
     ports:
       - "5000:5000"
     volumes:
@@ -11,11 +11,11 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      - dance-dance-analytics-db
 
-  db:
+  dance-dance-analytics-db:
     image: postgres:15
-    container_name: dance_dance_analytics_db
+    container_name: dance-dance-analytics-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
