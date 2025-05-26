@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   dance-dance-analytics-web:
     build: .
@@ -12,18 +10,23 @@ services:
       - .env
     depends_on:
       - dance-dance-analytics-db
+    networks:
+      - default
 
   dance-dance-analytics-db:
     image: postgres:15
     container_name: dance-dance-analytics-db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: dance_db
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - default
 
 volumes:
   postgres_data:
+
+networks:
+  default:

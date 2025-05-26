@@ -1,12 +1,10 @@
-import time
 from flask_migrate import Migrate
-from sqlalchemy.exc import OperationalError
 from flask import Flask
 
 from app.utils.csrf import init_csrf_cookie
 from app.utils.empty_query import strip_empty_query_params
 from app.utils.partials import inject_partials
-from .database import db, initialize_database
+from .database import db
 from .api.routes import api_bp
 from .web.views import web_bp
 from .web.mix.views import mix_web_bp
@@ -33,7 +31,6 @@ def create_app():
 
     db.init_app(app)
     Migrate(app, db)
-    initialize_database(app)
 
     api_bp.register_blueprint(mix_api_bp, url_prefix="/mix")
     web_bp.register_blueprint(mix_web_bp, url_prefix="/mix")
