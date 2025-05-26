@@ -1,6 +1,6 @@
 .app-sidebar {
   width: 250px;
-  height: 100vh;
+  height: 100%;
   background: var(--surface-color);
   box-shadow: var(--box-shadow);
   border-right: 1px solid var(--variant-color);
@@ -40,6 +40,11 @@
 
 .nav-links a:hover {
   background: var(--interact-color);
+  color: var(--foreground-color);
+}
+
+.nav-links .active {
+  outline: 2px solid var(--surface-variant);
   color: var(--foreground-color);
 }
 

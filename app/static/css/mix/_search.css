@@ -4,5 +4,6 @@
 }
 
 #mix-search-form button[type="submit"] {
+  margin-top: var(--space-s);
   align-self: flex-end;
 }

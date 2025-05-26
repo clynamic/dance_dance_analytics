@@ -4,29 +4,19 @@
   </h1>
 </div>
 
+{% macro nav_link(label, icon, endpoint=None) %} {% set href = url_for(endpoint)
+%} {% set is_active = request.endpoint == endpoint %}
+<a href="{{ href }}" class="{{ 'active' if is_active else '' }}">
+  <i class="fas {{ icon }}"></i> {{ label }}
+</a>
+{% endmacro %}
+
 <nav class="nav-links">
-  <a href="{{ url_for('web.mix_web.index') }}">
-    <i class="fas fa-music"></i>
-    Mixes
-  </a>
-  <a href="{{ url_for('web.song_web.index') }}">
-    <i class="fas fa-compact-disc"></i>
-    Songs
-  </a>
-  <a href="/">
-    <i class="fas fa-play"></i>
-    Charts
-  </a>
+  {{ nav_link('Mixes', 'fa-music', endpoint='web.mix_web.index') }} {{
+  nav_link('Songs', 'fa-compact-disc', endpoint='web.song_web.index') }}
+  <a href="#"> <i class="fas fa-play"></i> Charts </a>
   {% if session.get("is_admin") %}
-  <!-- Admin only page design? -->
-  <a href="/">
-    <i class="fas fa-user-shield"></i>
-    Admin
-  </a>
-  {% else %}
-  <a href="{{ url_for('web.auth_web.login_page') }}">
-    <i class="fas fa-sign-in-alt"></i>
-    Login
-  </a>
-  {% endif %}
+  <a href="#"> <i class="fas fa-user-shield"></i> Admin </a>
+  {% else %} {{ nav_link('Login', 'fa-sign-in-alt',
+  endpoint='web.auth_web.login_page') }} {% endif %}
 </nav>
