@@ -1,13 +1,24 @@
 #!/bin/bash
 set -e
 
-until PGPASSWORD=$POSTGRES_PASSWORD psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -c '\q'; do
-  echo "Postgres is unavailable - waiting..."
-  sleep 2
+POSTGRES_USER=${DATABASE_URL#*://}
+POSTGRES_USER=${POSTGRES_USER%%:*}
+
+POSTGRES_PASSWORD=${DATABASE_URL#*://${POSTGRES_USER}:}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD%%@*}
+
+POSTGRES_HOST=${DATABASE_URL#*@}
+POSTGRES_HOST=${POSTGRES_HOST%%:*}
+
+MAX_WAIT=60
+WAIT_INTERVAL=2
+elapsed=0
+
+until PGPASSWORD=$POSTGRES_PASSWORD psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -c '\q' >/dev/null 2>&1; do
+  [ $elapsed -ge $MAX_WAIT ] && echo "Postgres is unavailable. Exiting." && exit 1
+  sleep $WAIT_INTERVAL
+  elapsed=$((elapsed + WAIT_INTERVAL))
 done
 
-echo "Running database migrations..."
 flask --app run db upgrade
-
-echo "Starting Gunicorn..."
 exec gunicorn -w 4 -b 0.0.0.0:5000 run:app
