@@ -16,6 +16,14 @@ class Config:
             "This is required for all mutating operations in the API."
         )
 
+    SECRET_KEY = os.getenv("SECRET_KEY")
+
+    if not SECRET_KEY:
+        raise ValueError(
+            "Please specify the SECRET_KEY environment variable.\n"
+            "This is required for session management and CSRF protection."
+        )
+
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         "postgresql+psycopg://postgres:postgres@localhost:5432/dance_db",
