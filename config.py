@@ -8,18 +8,17 @@ class Config:
     ENV = os.getenv("FLASK_ENV", "production")
     DEBUG = ENV == "development"
 
-    SECRET_KEY = os.getenv("SECRET_KEY")
-    ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
+    ADMIN_KEY = os.getenv("ADMIN_KEY")
 
-    POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
-    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
-    POSTGRES_DB = os.getenv("POSTGRES_DB", "dance_db")
-    POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
-    POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
+    if not ADMIN_KEY:
+        raise ValueError(
+            "Please specify the ADMIN_KEY environment variable.\n"
+            "This is required for all mutating operations in the API."
+        )
 
-    SQLALCHEMY_DATABASE_URI = (
-        f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}"
-        f"@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL",
+        "postgresql+psycopg://postgres:postgres@localhost:5432/dance_db",
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False

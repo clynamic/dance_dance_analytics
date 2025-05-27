@@ -7,7 +7,7 @@ auth_api_bp = Blueprint("auth_api", __name__)
 @auth_api_bp.route("/login.json", methods=["POST"])
 def login():
     key = request.json.get("api_key")
-    expected = current_app.config["ADMIN_API_KEY"]
+    expected = current_app.config["ADMIN_KEY"]
 
     if key == expected:
         session["is_admin"] = True

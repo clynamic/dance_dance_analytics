@@ -8,25 +8,20 @@ services:
       - .:/app
     env_file:
       - .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg://postgres:postgres@dance-dance-analytics-db:5432/dance_db
     depends_on:
       - dance-dance-analytics-db
-    networks:
-      - default
 
   dance-dance-analytics-db:
     image: postgres:15
     container_name: dance-dance-analytics-db
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=dance_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - default
 
 volumes:
   postgres_data:
-
-networks:
-  default:

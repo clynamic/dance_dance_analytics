@@ -15,7 +15,7 @@ def is_authorized_request() -> bool:
         return True
 
     api_key = request.headers.get("X-API-Key") or request.args.get("api_key")
-    expected = current_app.config.get("ADMIN_API_KEY")
+    expected = current_app.config.get("ADMIN_KEY")
     return api_key == expected
 
 
