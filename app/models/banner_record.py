@@ -3,6 +3,9 @@ from app.database import db
 
 
 class BannerRecord(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     __tablename__ = "banner_records"
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)

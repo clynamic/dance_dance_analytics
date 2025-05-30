@@ -1,9 +1,12 @@
 import uuid
 from app.database import db
-from simfile import Simfile
+from simfile.base import BaseChart
 
 
 class ChartRecord(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     __tablename__ = "chart_records"
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)
@@ -24,11 +27,10 @@ class ChartRecord(db.Model):
     rating = db.Column(db.Integer)
 
     @classmethod
-    def from_sim(cls, sim: Simfile) -> "ChartRecord":
-        print(sim)
+    def from_sim(cls, chart: BaseChart) -> "ChartRecord":
         return cls(
-            stepstype=sim.stepstype,
-            description=sim.description,
-            difficulty=sim.difficulty,
+            stepstype=chart.stepstype,
+            description=chart.description,
+            difficulty=chart.difficulty,
             rating=0,  # TODO: how do we get this information? lib only has "radarvalues"?
         )

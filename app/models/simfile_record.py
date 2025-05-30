@@ -6,6 +6,9 @@ from functools import cached_property
 
 
 class SimfileRecord(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     __tablename__ = "simfile_records"
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)

@@ -8,6 +8,9 @@ from sqlalchemy import inspect, event
 
 
 class MixRecord(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     __tablename__ = "mix_records"
 
     id = db.Column(db.Uuid, primary_key=True, default=uuid.uuid4)

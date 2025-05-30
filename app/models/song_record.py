@@ -7,6 +7,9 @@ from app.models.chart_record import ChartRecord
 
 
 class SongRecord(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     __tablename__ = "song_records"
 
     id = db.Column(db.Uuid, db.ForeignKey("simfile_records.id"), primary_key=True)
