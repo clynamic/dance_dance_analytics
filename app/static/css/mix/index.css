@@ -1,18 +1,17 @@
 @import url("../common/result_header.css");
 
-.index-page {
+main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
-  height: 100%;
+  align-items: center;
 }
 
 .mix-list {
   display: flex;
   flex-direction: column;
 
+  gap: var(--space-m);
   width: 600px;
 }
 

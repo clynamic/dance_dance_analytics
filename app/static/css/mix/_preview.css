@@ -2,9 +2,8 @@
   display: flex;
   align-items: center;
 
-  gap: 1rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  gap: var(--space-m);
+  padding: var(--space-m);
 
   background: var(--surface-color);
   border: 1px solid var(--border-color);
@@ -24,7 +23,7 @@
   height: auto;
   aspect-ratio: 2.5;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .mix-info {
@@ -33,7 +32,7 @@
 
 .mix-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--font-size-ml);
   color: var(--foreground-color);
 }
 
@@ -45,7 +44,7 @@
   gap: var(--space-s);
 
   color: var(--foreground-color-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-s);
 }
 
 .mix-song-count {
@@ -61,6 +60,6 @@
 }
 
 .song-count-label {
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   color: var(--foreground-color-muted);
 }

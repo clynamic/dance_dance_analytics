@@ -24,12 +24,12 @@
   {% include "mix/_search.html" %}
 </partial-aside>
 
-<div class="index-page">
+<div class="content">
+  <div class="result-header">
+    <h2>Mixes</h2>
+    <p class="result-count">{{ mixes|length }} results</p>
+  </div>
   <div class="mix-list">
-    <div class="result-header">
-      <h2>Mixes</h2>
-      <p class="result-count">{{ mixes|length }} results</p>
-    </div>
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
     <div class="empty-mix-list">
       <i class="fas fa-folder-open fa-2x"></i>

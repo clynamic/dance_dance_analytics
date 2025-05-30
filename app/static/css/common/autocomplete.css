@@ -29,7 +29,7 @@
 .ac-item {
   padding: var(--space-s) var(--space-m);
   font-family: var(--font-family);
-  font-size: 1rem;
+  font-size: var(--font-size-m);
   color: var(--foreground-color);
   cursor: pointer;
   white-space: nowrap;

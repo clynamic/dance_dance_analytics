@@ -1,6 +1,4 @@
 :root {
-  --border-radius: 4px;
-
   --ddr-pink: #c71781;
   --ddr-blue: #2484c6;
 
@@ -12,12 +10,10 @@
   --foreground-color-muted: #999999;
 
   --primary-color: var(--ddr-pink);
-
   --error-color: #ff4d4d;
 
-  --font-family: "Orbitron", sans-serif;
-
   --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 4px;
 
   --space-xxs: 2px;
   --space-xs: 4px;
@@ -28,6 +24,16 @@
   --space-l: 24px;
   --space-xl: 32px;
   --space-2xl: 48px;
+
+  --font-family: "Orbitron", sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-s: 0.875rem;
+  --font-size-m: 1rem;
+  --font-size-ml: 1.25rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 3rem;
 }
 
 body {
@@ -45,6 +51,7 @@ body {
   color: var(--foreground-color);
 
   font-family: var(--font-family);
+  font-size: var(--font-size-m);
 }
 
 h1,
@@ -60,7 +67,7 @@ h6 {
 input {
   height: 32px;
 
-  padding: 4px 8px;
+  padding: var(--space-xs) var(--space-s);
 
   border: none;
 
@@ -91,7 +98,7 @@ button,
   align-items: center;
   justify-content: center;
 
-  padding: 6px 12px;
+  padding: var(--space-xs) var(--space-m);
 
   border: none;
 
@@ -135,7 +142,7 @@ select {
   background-color: var(--surface-color);
   color: var(--foreground-color);
   font-family: var(--font-family);
-  font-size: 1rem;
+  font-size: var(--font-size-m);
   padding: var(--space-s) var(--space-m);
   border: 1px solid var(--surface-variant);
   border-radius: var(--border-radius);
@@ -186,12 +193,12 @@ select:disabled {
 
   width: 100%;
 
-  margin-bottom: 16px;
+  margin-bottom: var(--space-m);
 }
 
 .form-field label {
   color: var(--foreground-color-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-s);
 }
 
 .form-field input {

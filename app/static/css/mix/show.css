@@ -1,4 +1,4 @@
-.mix-show {
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +59,7 @@
   gap: var(--space-s);
 
   color: var(--foreground-color-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-s);
 }
 
 .mix-song-list {

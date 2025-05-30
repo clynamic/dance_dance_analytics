@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
 
-  gap: 4px;
+  gap: var(--space-xs);
 }
 
 .banner-preview-wrapper {
@@ -13,7 +13,7 @@
   width: 256px;
   height: 80px;
 
-  margin-top: 1rem;
+  margin-top: var(--space-m);
 
   border-radius: 6px;
   overflow: hidden;
@@ -67,6 +67,6 @@
 }
 
 button[type="submit"] {
-  margin-top: 16px;
+  margin-top: var(--space-m);
   align-self: flex-end;
 }

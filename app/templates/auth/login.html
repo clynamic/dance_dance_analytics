@@ -8,17 +8,30 @@
   <script src="{{ url_for('static', filename='js/common/safe_redirect.js') }}"></script>
 </partial-head>
 
-<div class="auth-card">
-  <h2>Admin Login</h2>
-  <form id="login-form">
-    <div class="form-field">
-      <label for="api_key">API Key</label>
-      <input type="password" id="api_key" name="api_key" required />
-    </div>
+<div class="content">
+  <h2>Login</h2>
+  <div class="card">
+    <form id="login-form">
+      <div class="form-field">
+        <label for="username">User</label>
+        <input
+          type="username"
+          id="username"
+          name="username"
+          required
+          readonly
+          value="Admin"
+        />
+      </div>
+      <div class="form-field">
+        <label for="api_key">Password</label>
+        <input type="password" id="api_key" name="api_key" required />
+      </div>
 
-    <button type="submit">Login</button>
-  </form>
-  <div id="login-error"></div>
+      <button type="submit">Go</button>
+    </form>
+    <div id="login-error"></div>
+  </div>
 </div>
 
 <script>

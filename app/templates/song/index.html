@@ -22,14 +22,17 @@
   {% include "song/_search.html" %}
 </partial-aside>
 
-<div class="index-page">
+<div class="content">
+  <div class="result-header">
+    <h2>Songs</h2>
+    <p class="result-count">{{ songs|length }} results</p>
+  </div>
   <div class="song-list">
-    <div class="result-header">
-      <h2>Songs</h2>
-      <p class="result-count">{{ songs|length }} results</p>
-    </div>
     {% for song in songs %} {% include "song/_preview.html" %} {% else %}
-    <p>No songs found.</p>
+    <div class="empty-song-list">
+      <i class="fas fa-folder-open fa-2x"></i>
+      <p>No songs found.</p>
+    </div>
     {% endfor %}
   </div>
 </div>

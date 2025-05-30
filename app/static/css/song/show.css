@@ -1,4 +1,4 @@
-.song-show {
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +53,7 @@
   justify-content: center;
   background: var(--surface-variant);
   color: var(--foreground-color-muted);
-  font-size: 1.2rem;
+  font-size: var(--font-size-ml);
 }
 
 .song-info h1 {
@@ -62,7 +62,7 @@
 
 .song-artist,
 .song-translit {
-  font-size: 1rem;
+  font-size: var(--font-size-m);
   margin-bottom: var(--space-s);
   color: var(--foreground-color-muted);
 }
@@ -75,11 +75,11 @@
   gap: var(--space-s);
 
   color: var(--foreground-color-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-s);
 }
 
 .song-bpm {
-  font-size: 0.9rem;
+  font-size: var(--font-size-s);
   margin-top: var(--space-s);
   color: var(--foreground-color-muted);
 }
@@ -89,12 +89,4 @@
   flex-direction: column;
   width: 100%;
   max-width: 600px;
-}
-
-.chart-preview {
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: var(--space-m);
-  margin-bottom: var(--space-m);
-  background-color: var(--surface-color);
 }
