@@ -24,7 +24,10 @@
 
 <div class="index-page">
   <div class="song-list">
-    <h2>Songs</h2>
+    <div class="result-header">
+      <h2>Songs</h2>
+      <p class="result-count">{{ songs|length }} results</p>
+    </div>
     {% for song in songs %} {% include "song/_preview.html" %} {% else %}
     <p>No songs found.</p>
     {% endfor %}

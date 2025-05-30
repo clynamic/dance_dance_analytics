@@ -1,0 +1,11 @@
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: var(--space-xs);
+}
+
+.result-header .result-count {
+  color: var(--foreground-color-muted);
+}

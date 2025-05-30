@@ -14,8 +14,8 @@
   <div class="sidebar-actions">
     <a href="{{ url_for('web.mix_web.create') }}" class="button">
       <i class="fa fa-plus"></i>
-      New Mix</a
-    >
+      New Mix
+    </a>
   </div>
 
   {% endif %}
@@ -26,11 +26,14 @@
 
 <div class="index-page">
   <div class="mix-list">
-    <h2>Mixes</h2>
+    <div class="result-header">
+      <h2>Mixes</h2>
+      <p class="result-count">{{ mixes|length }} results</p>
+    </div>
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
     <div class="empty-mix-list">
       <i class="fas fa-folder-open fa-2x"></i>
-      <p>You don't have any mixes yet.</p>
+      <p>No mixes found.</p>
     </div>
     {% endfor %}
   </div>

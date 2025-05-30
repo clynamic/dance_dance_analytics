@@ -1,3 +1,5 @@
+@import url("../common/result_header.css");
+
 .index-page {
   display: flex;
   flex-direction: column;
