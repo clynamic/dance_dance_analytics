@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block title %}404 Not Found{% endblock %} {%
 block body %}
-<partial-head>
+<partial-head once>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/error/404.css') }}"

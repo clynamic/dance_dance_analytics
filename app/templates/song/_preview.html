@@ -1,4 +1,4 @@
-<partial-head>
+<partial-head once>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/song/_preview.css') }}"
@@ -30,10 +30,9 @@
 
     <div class="song-chart-count">
       <span class="chart-count-number">
-        {{ song.charts|length if song.charts else 0 }}
+        {{ song.charts|length if song.charts else No }}
       </span>
       <span class="chart-count-label">charts</span>
     </div>
-    <!-- add minutes:seconds of song length -->
   </div>
 </a>

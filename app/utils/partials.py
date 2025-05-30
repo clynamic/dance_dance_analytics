@@ -73,6 +73,7 @@ def inject_partials(response: Response) -> Response:
                         fragment = BeautifulSoup(contents, "html.parser")
                         elements = list(fragment.contents)
                         location = partial.get("location", "end")
+                        once = partial.has_attr("once")
 
                         matched_hosts = hosts
                         if partial_classes:
@@ -94,6 +95,15 @@ def inject_partials(response: Response) -> Response:
                         for host in matched_hosts:
                             for el in elements:
                                 el.extract()
+
+                                if once:
+                                    el_str = str(el)
+                                    if any(
+                                        str(existing) == el_str
+                                        for existing in host.contents
+                                    ):
+                                        continue
+
                                 if location == "start":
                                     host.insert(0, el)
                                 else:

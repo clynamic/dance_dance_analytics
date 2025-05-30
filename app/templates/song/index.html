@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block title %}Songs{% endblock %} {% block body
 %}
 
-<partial-head>
+<partial-head once>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/song/index.css') }}"

@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block title %}{{ song.title }}{% endblock %} {%
+block body %}
+
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/song/show.css') }}"
+  />
+</partial-head>
+
+<partial-aside class="app-sidebar">
+  {% if session.get("is_admin") %}
+  <hr />
+
+  <div class="sidebar-actions"></div>
+  {% endif %}
+</partial-aside>
+
+<div class="song-show">
+  <div class="song-show-header">
+    {% if song.banner_id %}
+    <img
+      class="song-banner"
+      src="{{ url_for('assets_api.get_banner', id=song.banner_id) }}"
+      alt="Banner"
+    />
+    {% else %}
+    <div class="song-banner placeholder">
+      <i class="fas fa-image"></i>
+    </div>
+    {% endif %}
+    <div class="song-info">
+      <h1>{{ song.title }}</h1>
+      <p class="song-artist">
+        <i class="fa fa-user"></i>
+        {{ song.artist }}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

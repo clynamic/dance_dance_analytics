@@ -42,17 +42,18 @@
 .song-banner {
   width: 128px;
   height: auto;
+  aspect-ratio: 2.5;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
+}
 
-  &.placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--border-color);
-    color: var(--foreground-color-muted);
-    font-size: 1.2rem;
-  }
+.song-banner.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-variant);
+  color: var(--foreground-color-muted);
+  font-size: 1.2rem;
 }
 
 .song-info {

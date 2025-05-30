@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block title %}Upload Simfiles{% endblock %} {%
 block body %}
-<partial-head>
+<partial-head once>
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/song/create.css') }}"
