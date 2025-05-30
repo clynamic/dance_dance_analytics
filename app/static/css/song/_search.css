@@ -1,0 +1,9 @@
+#song-search-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#song-search-form button[type="submit"] {
+  margin-top: var(--space-s);
+  align-self: flex-end;
+}

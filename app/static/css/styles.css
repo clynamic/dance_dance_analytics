@@ -81,6 +81,10 @@ input:focus {
   outline: 2px solid var(--primary-color);
 }
 
+a {
+  color: var(--primary-color);
+}
+
 button,
 .button {
   display: flex;

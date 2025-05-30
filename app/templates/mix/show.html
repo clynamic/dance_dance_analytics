@@ -16,6 +16,13 @@ block body %}
     <a href="{{ url_for('web.mix_web.edit', id=mix.slug) }}" class="button">
       <i class="fas fa-pen"></i> Edit
     </a>
+    <a href="/404" class="button danger">
+      <i class="fas fa-trash"></i> Delete
+    </a>
+    <hr />
+    <a href="{{ url_for('web.song_web.create', mix=mix.slug) }}" class="button">
+      <i class="fas fa-plus"></i> Add Songs
+    </a>
   </div>
   {% endif %}
 </partial-aside>

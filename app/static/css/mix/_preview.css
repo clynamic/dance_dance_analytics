@@ -21,7 +21,7 @@
 
 .mix-banner {
   width: 128px;
-  height: 40px;
+  height: auto;
   object-fit: cover;
   border-radius: 4px;
 }
@@ -37,6 +37,12 @@
 }
 
 .mix-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--space-s);
+
   color: var(--foreground-color-muted);
   font-size: 0.9rem;
 }

@@ -10,7 +10,7 @@ main {
   max-width: 100%;
 }
 
-.mix-card {
+.card {
   padding: 16px;
 
   background: var(--surface-color);

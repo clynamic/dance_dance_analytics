@@ -5,107 +5,22 @@ block body %}
     rel="stylesheet"
     href="{{ url_for('static', filename='css/song/create.css') }}"
   />
-  <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
 </partial-head>
 
-<div class="upload-card">
+<div class="content">
+  {% if mixes|length == 0 %}
+  <h2>No mixes</h2>
+  <div class="card empty">
+    <i class="fas fa-folder-open fa-2x"></i>
+    <p>
+      Please <a href="{{ url_for('web.mix_web.create') }}">add a mix</a> first
+      before uploading songs.
+    </p>
+  </div>
+  {% else %}
   <h2>Upload Simfiles</h2>
-  <form id="upload-form">
-    <div class="form-field">
-      <label for="mix">Select Mix</label>
-      <select id="mix" name="mix" required>
-        {% for mix in mixes %}
-        <option value="{{ mix.id }}">
-          {{ mix.title }} ({{ mix.system }} - {{ mix.region }})
-        </option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="form-field">
-      <label id="drop-label" class="file-upload-wrapper">
-        <input
-          type="file"
-          id="sm-files"
-          name="files"
-          multiple
-          accept=".sm"
-          hidden
-        />
-
-        <div class="file-upload-placeholder">
-          <i class="fas fa-file-arrow-up"></i>
-          <span>Click or drag .sm files here</span>
-        </div>
-      </label>
-    </div>
-
-    <div id="file-list"></div>
-
-    <button type="submit">Upload</button>
-  </form>
+  <div class="card">{% include "song/_form.html" %}</div>
+  {% endif %}
 </div>
 
-<script>
-  const dropLabel = document.getElementById("drop-label");
-  const input = document.getElementById("sm-files");
-  const list = document.getElementById("file-list");
-  const form = document.getElementById("upload-form");
-
-  const fileData = [];
-
-  dropLabel.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    dropLabel.classList.add("dragover");
-  });
-  dropLabel.addEventListener("dragleave", () => {
-    dropLabel.classList.remove("dragover");
-  });
-  dropLabel.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dropLabel.classList.remove("dragover");
-    handleFiles(e.dataTransfer.files);
-  });
-
-  input.addEventListener("change", () => handleFiles(input.files));
-
-  function handleFiles(files) {
-    list.innerHTML = "";
-    fileData.length = 0;
-
-    for (const file of files) {
-      const entry = document.createElement("div");
-      entry.className = "file-entry";
-      entry.textContent = file.name + " - Pending";
-      list.appendChild(entry);
-
-      fileData.push({ file, element: entry });
-    }
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const mixId = document.getElementById("mix").value;
-
-    for (const { file, element } of fileData) {
-      const text = await file.text();
-      const response = await fetch(
-        `/api/song/create.json?mix_id=${encodeURIComponent(mixId)}`,
-        {
-          method: "POST",
-          ...getCSRFHeaders(),
-          body: text.trim(),
-        }
-      );
-
-      const result = await response.json();
-      if (response.ok) {
-        element.textContent = `${file.name} - OK (ID: ${result.data.id})`;
-      } else {
-        element.textContent = `${file.name} - Error: ${result.message}`;
-      }
-    }
-  });
-</script>
 {% endblock %}

@@ -50,6 +50,10 @@ class MixRecord(db.Model):
         return [r[0] for r in results if r[0]]
 
     @classmethod
+    def get_title_autocomplete(cls):
+        return cls._distinct_column_values(cls.title)
+
+    @classmethod
     def get_region_autocomplete(cls):
         return cls._distinct_column_values(cls.region)
 

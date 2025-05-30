@@ -1,0 +1,34 @@
+{% extends "layout.html" %} {% block title %}Songs{% endblock %} {% block body
+%}
+
+<partial-head>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/song/index.css') }}"
+  />
+</partial-head>
+
+<partial-aside class="app-sidebar">
+  {% if session.get("is_admin") %}
+  <hr />
+  <div class="sidebar-actions">
+    <a href="{{ url_for('web.song_web.create') }}" class="button">
+      <i class="fa fa-plus"></i>
+      New Song
+    </a>
+  </div>
+  {% endif %}
+  <hr />
+  {% include "song/_search.html" %}
+</partial-aside>
+
+<div class="index-page">
+  <div class="song-list">
+    <h2>Songs</h2>
+    {% for song in songs %} {% include "song/_preview.html" %} {% else %}
+    <p>No songs found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

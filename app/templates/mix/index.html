@@ -26,8 +26,12 @@
 
 <div class="index-page">
   <div class="mix-list">
+    <h2>Mixes</h2>
     {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
-    <p>No mixes found.</p>
+    <div class="empty-mix-list">
+      <i class="fas fa-folder-open fa-2x"></i>
+      <p>You don't have any mixes yet.</p>
+    </div>
     {% endfor %}
   </div>
 </div>

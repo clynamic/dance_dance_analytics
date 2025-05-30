@@ -23,9 +23,11 @@
 
     <div class="mix-info">
       <h3 class="mix-title">{{ mix.title }}</h3>
-      <p class="mix-meta">
-        {{ mix.release.year }} - {{ mix.system }} - {{ mix.region }}
-      </p>
+      <div class="mix-meta">
+        <p><i class="fa fa-calendar"></i> {{ mix.release.year }}</p>
+        <p><i class="fa fa-gamepad"></i> {{ mix.system }}</p>
+        <p><i class="fa fa-globe"></i> {{ mix.region }}</p>
+      </div>
     </div>
 
     <div class="mix-song-count">

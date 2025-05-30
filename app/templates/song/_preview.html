@@ -25,9 +25,7 @@
 
     <div class="song-info">
       <h3 class="song-title">{{ song.title }}</h3>
-      <p class="song-meta">
-        {{ song.artist or "Unknown Artist" }} - {{ song.displaybpm or "?" }} BPM
-      </p>
+      <p class="song-meta">{{ song.artist }}</p>
     </div>
 
     <div class="song-chart-count">
@@ -36,5 +34,6 @@
       </span>
       <span class="chart-count-label">charts</span>
     </div>
+    <!-- add minutes:seconds of song length -->
   </div>
 </a>
