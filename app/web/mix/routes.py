@@ -2,36 +2,25 @@ from flask import Blueprint, redirect, render_template, request, url_for
 from flask import Blueprint, render_template, abort
 from app.form.mix.create import MixCreateForm
 from app.form.mix.edit import MixEditForm
-from app.utils.content_route import content_route, get_request_format
+from app.models.song_record import SongRecord
+from app.utils.content_route import content_route, get_request_format, request_is_json
 from app.utils.response_format import respond
 from app.utils.responses import json_data, json_error, json_success
 from app.web.auth.guard import require_admin
 from app.models.mix_record import MixRecord
 from app.database import db
-import uuid
 
-from app.utils.query_builder import build_dynamic_query
 
 mix_bp = Blueprint("mix", __name__)
 
 
 @content_route(mix_bp, "/mix")
 def index():
-    query = MixRecord.query
-
-    QUERY_FIELDS = {
-        "title": ("text", MixRecord.title),
-        "system": ("text", MixRecord.system),
-        "region": ("text", MixRecord.region),
-        "id": ("id", [MixRecord.id, MixRecord.slug]),
-        "release": ("date", MixRecord.release),
-    }
-
-    query = build_dynamic_query(query, request.args, QUERY_FIELDS)
+    query = MixRecord.query_with_filters(request.args)
 
     mixes = query.order_by(MixRecord.release.desc()).all()
 
-    if get_request_format() == "json":
+    if request_is_json():
         return json_data(mixes)
 
     title_terms = request.args.getlist("title")
@@ -72,16 +61,7 @@ def create_mix():
 
 @content_route(mix_bp, "/mix/<id>")
 def show(id):
-    mix = None
-
-    try:
-        mix_id = uuid.UUID(id)
-        mix = MixRecord.get(mix_id)
-    except (ValueError, IndexError):
-        pass
-
-    if mix is None:
-        mix = MixRecord.query.filter_by(slug=id).first()
+    mix = MixRecord.get(id)
 
     if not mix:
         return respond(
@@ -93,7 +73,12 @@ def show(id):
     if get_request_format() == "json":
         return json_data(mix)
 
-    return render_template("mix/show.html", mix=mix)
+    query = SongRecord.query_with_filters(request.args)
+    query = query.filter(SongRecord.mix_id == mix.id)
+
+    songs = query.order_by(SongRecord.title).all()
+
+    return render_template("song/index.html", songs=songs, mix=mix)
 
 
 @mix_bp.route("/mix/<id>/edit")

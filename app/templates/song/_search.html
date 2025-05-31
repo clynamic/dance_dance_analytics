@@ -11,6 +11,10 @@
 </partial-head>
 
 <form id="song-search-form" method="get" action="{{ url_for('song.index') }}">
+  {% if mix %}
+  <input type="hidden" name="mix_id" value="{{ mix.id }}" />
+  {% endif %}
+
   <div class="form-field">
     <label for="title">Title</label>
     <input
@@ -37,6 +41,7 @@
     <auto-complete endpoint="/song/autocomplete" field="artist"></auto-complete>
   </div>
 
+  {% if not mix %}
   <div class="form-field">
     <label for="mix_title">Mix Title</label>
     <input
@@ -49,6 +54,7 @@
     />
     <auto-complete endpoint="/mix/autocomplete" field="title"></auto-complete>
   </div>
+  {% endif %}
 
   <!-- toggle for title translit -->
 

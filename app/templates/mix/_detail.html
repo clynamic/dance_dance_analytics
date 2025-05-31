@@ -1,0 +1,30 @@
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/mix/_detail.css') }}"
+  />
+</partial-head>
+
+<div class="mix-show">
+  <div class="mix-show-header">
+    {% if mix.banner_id %}
+    <img
+      class="mix-banner"
+      src="{{ url_for('assets.get_banner', id=mix.banner_id) }}"
+      alt="Banner"
+    />
+    {% endif %}
+    <div class="mix-info">
+      <h1>{{ mix.title }}</h1>
+      <div class="mix-meta">
+        <p><i class="fa fa-calendar"></i> {{ mix.release.year }}</p>
+        <p><i class="fa fa-gamepad"></i> {{ mix.system }}</p>
+        <p><i class="fa fa-globe"></i> {{ mix.region }}</p>
+      </div>
+      <p class="mix-meta">
+        <i class="fa fa-compact-disc"></i>
+        {{ mix.song_count }} songs
+      </p>
+    </div>
+  </div>
+</div>

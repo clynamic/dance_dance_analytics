@@ -1,10 +1,10 @@
-import uuid
-from flask import Blueprint, abort, jsonify, redirect, render_template, request, url_for
+from typing import Any, cast
+from flask import Blueprint, redirect, render_template, request, url_for
 from app.models.mix_record import MixRecord
 from app.models.song_record import SongRecord
 from app.parser.load import load_simfile
-from app.utils.content_route import content_route, get_request_format
-from app.utils.query_builder import build_dynamic_query
+from app.utils.content_route import content_route, request_is_json
+from app.utils.query_arguments import get_single_query_arg
 from app.utils.request_format import get_request_data
 from app.utils.response_format import respond
 from app.utils.responses import json_data, json_error
@@ -16,28 +16,44 @@ song_bp = Blueprint("song", __name__)
 
 @content_route(song_bp, "/song")
 def index():
-    query = SongRecord.query.join(MixRecord, SongRecord.mix_id == MixRecord.id)
+    mix_id = get_single_query_arg("mix_id")
+    mix_title = get_single_query_arg("mix_title")
 
-    QUERY_FIELDS = {
-        "title": ("text", SongRecord.title),
-        "artist": ("text", SongRecord.artist),
+    if mix_id or mix_title:
+        mix = None
+        if mix_id:
+            mix = MixRecord.get(mix_id)
+        elif mix_title:
+            matches = MixRecord.query.filter(MixRecord.title == mix_title).all()
+            if len(matches) == 1:
+                mix = matches[0]
+
+        if mix:
+            query_params = dict(request.args)
+            for key in ["mix_id", "mix_title"]:
+                query_params.pop(key, None)
+            return redirect(
+                url_for("mix.show", id=mix.slug, **cast(dict[str, Any], query_params))
+            )
+
+    extra_fields = {
         "mix_title": ("text", MixRecord.title),
-        "mix": ("id", [MixRecord.id, MixRecord.slug]),
+        "mix_id": ("id", [MixRecord.id, MixRecord.slug]),
         "release": ("date", MixRecord.release),
     }
 
-    query = build_dynamic_query(query, request.args, QUERY_FIELDS)
+    query = SongRecord.query_with_filters(request.args, extra_fields=extra_fields)
+    songs = query.order_by(SongRecord.title).all()
 
-    songs = query.order_by(MixRecord.release.desc()).all()
-
-    if get_request_format() == "json":
+    if request_is_json():
         return json_data(songs)
 
     title_terms = request.args.getlist("title")
-    if title_terms:
-        for song in songs:
-            if any(song.title.lower() == term.lower() for term in title_terms):
-                return redirect(url_for("song.show", id=song.slug))
+    if len(title_terms) == 1:
+        term = title_terms[0].lower()
+        matches = [song for song in songs if song.title.lower() == term]
+        if len(matches) == 1:
+            return redirect(url_for("song.show", id=matches[0].slug))
 
     return render_template("song/index.html", songs=songs)
 
@@ -83,16 +99,7 @@ def create_song():
 
 @content_route(song_bp, "/song/<id>")
 def show(id):
-    song = None
-
-    try:
-        song_id = uuid.UUID(id)
-        song = SongRecord.query.get(song_id)
-    except (ValueError, IndexError):
-        pass
-
-    if song is None:
-        song = SongRecord.query.filter_by(slug=id).first()
+    song = SongRecord.get(id)
 
     if not song:
         return respond(
@@ -101,7 +108,7 @@ def show(id):
             status=404,
         )
 
-    if get_request_format() == "json":
+    if request_is_json():
         return json_data(song)
 
     return render_template("song/show.html", song=song)

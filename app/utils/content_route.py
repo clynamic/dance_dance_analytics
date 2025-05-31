@@ -33,3 +33,7 @@ def content_route(
 
 def get_request_format() -> str | None:
     return getattr(request, "format", None)
+
+
+def request_is_json() -> bool:
+    return get_request_format() == "json"

@@ -9,20 +9,14 @@
 </partial-head>
 
 <partial-aside class="app-sidebar">
-  {% if session.get("is_admin") %}
-  <hr />
-  <div class="sidebar-actions">
-    <a href="{{ url_for('song.create') }}" class="button">
-      <i class="fa fa-plus"></i>
-      New Song
-    </a>
-  </div>
-  {% endif %}
+  {% if mix %} {% include "mix/_action.html" %} {% else %} {% include
+  "song/_action.html" %} {% endif %}
   <hr />
   {% include "song/_search.html" %}
 </partial-aside>
 
 <div class="content">
+  {% if mix %} {% include "mix/_detail.html" %} {% endif %}
   <div class="result-header">
     <h2>Songs</h2>
     <p class="result-count">{{ songs|length }} results</p>

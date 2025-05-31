@@ -41,6 +41,14 @@ class SongRecord(BaseModel, AutocompleteMixin):
         "ChartRecord", back_populates="song", cascade="all, delete"
     )
 
+    QUERY_FIELDS = {
+        "id": ("id", [id, slug]),
+        "title": ("text", title),
+        "title_translit": ("text", title_translit),
+        "artist": ("text", artist),
+        "artist_translit": ("text", artist_translit),
+    }
+
     @classmethod
     def from_sim(cls, sim: Simfile) -> "SongRecord":
         return cls(
