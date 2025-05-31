@@ -23,7 +23,7 @@
       {% if mix and mix.banner_id %}
       <img
         id="banner-preview"
-        src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+        src="{{ url_for('assets.get_banner', id=mix.banner_id) }}"
         alt="Preview"
         style="display: block"
       />
@@ -132,7 +132,7 @@
     resultEl.innerText = "";
 
     try {
-      const response = await fetch("/api/mix/create.json", {
+      const response = await fetch("/mix/create.json", {
         method: "POST",
         body: getCSRFFormData(formData),
         ...getCSRFHeaders(),

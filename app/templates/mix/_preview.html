@@ -6,7 +6,7 @@
 </partial-head>
 
 <a
-  href="{{ url_for('web.mix_web.show', id=mix.slug) }}"
+  href="{{ url_for('mix.show', id=mix.slug) }}"
   class="link-wrapper mix-preview-link"
   title="{{ mix.title }}"
 >
@@ -14,7 +14,7 @@
     {% if mix.banner %}
     <img
       class="mix-banner"
-      src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+      src="{{ url_for('assets.get_banner', id=mix.banner_id) }}"
       alt="Banner"
     />
     {% else %}

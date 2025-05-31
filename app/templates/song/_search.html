@@ -10,11 +10,7 @@
   <script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
 </partial-head>
 
-<form
-  id="song-search-form"
-  method="get"
-  action="{{ url_for('web.song_web.index') }}"
->
+<form id="song-search-form" method="get" action="{{ url_for('song.index') }}">
   <div class="form-field">
     <label for="title">Title</label>
     <input

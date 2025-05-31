@@ -43,7 +43,7 @@
       const apiKey = document.getElementById("api_key").value;
       const resultEl = document.getElementById("login-error");
 
-      const response = await fetch("/api/auth/login.json", {
+      const response = await fetch("/auth/login.json", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

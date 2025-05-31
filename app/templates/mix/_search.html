@@ -10,11 +10,7 @@
   <script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
 </partial-head>
 
-<form
-  id="mix-search-form"
-  method="get"
-  action="{{ url_for('web.mix_web.index') }}"
->
+<form id="mix-search-form" method="get" action="{{ url_for('mix.index') }}">
   <div class="form-field">
     <label for="title">Title</label>
     <input

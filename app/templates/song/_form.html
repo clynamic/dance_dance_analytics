@@ -108,7 +108,7 @@
     for (const { file, element } of fileData) {
       const text = await file.text();
       const response = await fetch(
-        `/api/song/create.json?mix_id=${encodeURIComponent(mixId)}`,
+        `/song/create.json?mix_id=${encodeURIComponent(mixId)}`,
         {
           method: "POST",
           ...getCSRFHeaders(),

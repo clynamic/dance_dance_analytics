@@ -20,11 +20,11 @@ request.path.startswith(path_prefix) %}
 {% endmacro %}
 
 <nav class="nav-links">
-  {{ nav_link('Mixes', 'fa-music', endpoint='web.mix_web.index') }} {{
-  nav_link('Songs', 'fa-compact-disc', endpoint='web.song_web.index') }}
+  {{ nav_link('Mixes', 'fa-music', endpoint='mix.index') }} {{ nav_link('Songs',
+  'fa-compact-disc', endpoint='song.index') }}
   <a href="#"> <i class="fas fa-play"></i> Charts </a>
   {% if session.get("is_admin") %}
   <a href="#"> <i class="fas fa-user-shield"></i> Admin </a>
-  {% else %} {{ nav_link('Login', 'fa-sign-in-alt',
-  endpoint='web.auth_web.login_page') }} {% endif %}
+  {% else %} {{ nav_link('Login', 'fa-sign-in-alt', endpoint='auth.login_page')
+  }} {% endif %}
 </nav>

@@ -6,7 +6,7 @@
 </partial-head>
 
 <a
-  href="{{ url_for('web.song_web.show', id=song.slug) }}"
+  href="{{ url_for('song.show', id=song.slug) }}"
   class="link-wrapper song-preview-link"
   title="{{ song.title }}"
 >
@@ -14,7 +14,7 @@
     {% if song.banner %}
     <img
       class="song-banner"
-      src="{{ url_for('assets_api.get_banner', id=song.banner_id) }}"
+      src="{{ url_for('assets.get_banner', id=song.banner_id) }}"
       alt="Banner"
     />
     {% else %}

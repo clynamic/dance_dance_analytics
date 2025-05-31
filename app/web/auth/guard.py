@@ -35,6 +35,6 @@ def require_admin(f):
             return jsonify({"status": "error", "message": "Unauthorized"}), 401
         else:
             flash("You must be logged in as admin.", "error")
-            return redirect(url_for("web.auth_web.login_page", next=request.path))
+            return redirect(url_for("auth.login_page", next=request.path))
 
     return wrapper

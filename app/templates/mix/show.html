@@ -13,14 +13,14 @@ block body %}
   <hr />
 
   <div class="sidebar-actions">
-    <a href="{{ url_for('web.mix_web.edit', id=mix.slug) }}" class="button">
+    <a href="{{ url_for('mix.edit', id=mix.slug) }}" class="button">
       <i class="fas fa-pen"></i> Edit
     </a>
     <a href="/404" class="button danger">
       <i class="fas fa-trash"></i> Delete
     </a>
     <hr />
-    <a href="{{ url_for('web.song_web.create', mix=mix.slug) }}" class="button">
+    <a href="{{ url_for('song.create', mix=mix.slug) }}" class="button">
       <i class="fas fa-plus"></i> Add Songs
     </a>
   </div>
@@ -32,7 +32,7 @@ block body %}
     {% if mix.banner_id %}
     <img
       class="mix-banner"
-      src="{{ url_for('assets_api.get_banner', id=mix.banner_id) }}"
+      src="{{ url_for('assets.get_banner', id=mix.banner_id) }}"
       alt="Banner"
     />
     {% endif %}

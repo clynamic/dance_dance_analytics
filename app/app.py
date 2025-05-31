@@ -5,15 +5,11 @@ from app.utils.csrf import init_csrf_cookie
 from app.utils.empty_query import strip_empty_query_params
 from app.utils.partials import inject_partials
 from .database import db
-from .api.routes import api_bp
-from .web.views import web_bp
-from .web.mix.views import mix_web_bp
-from .api.mix.routes import mix_api_bp
-from .api.assets.routes import assets_bp
-from .api.auth.routes import auth_api_bp
-from .web.auth.views import auth_web_bp
-from .web.song.views import song_web_bp
-from .api.song.routes import song_api_bp
+from app.web.routes import web_bp
+from app.web.mix.routes import mix_bp
+from app.web.song.routes import song_bp
+from app.web.assets.routes import assets_bp
+from app.web.auth.routes import auth_bp
 
 
 def create_app():
@@ -21,29 +17,16 @@ def create_app():
     app.config.from_object("config.Config")
     init_csrf_cookie(app)
 
-    @app.before_request
-    def _():
-        return strip_empty_query_params()
-
-    @app.after_request
-    def _(response):
-        return inject_partials(response)
+    app.before_request(strip_empty_query_params)
+    app.after_request(inject_partials)
 
     db.init_app(app)
     Migrate(app, db)
 
-    api_bp.register_blueprint(mix_api_bp, url_prefix="/mix")
-    web_bp.register_blueprint(mix_web_bp, url_prefix="/mix")
-
-    api_bp.register_blueprint(song_api_bp, url_prefix="/song")
-    web_bp.register_blueprint(song_web_bp, url_prefix="/song")
-
-    app.register_blueprint(assets_bp, url_prefix="/cdn")
-
-    api_bp.register_blueprint(auth_api_bp, url_prefix="/auth")
-    web_bp.register_blueprint(auth_web_bp)
-
     app.register_blueprint(web_bp)
-    app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(mix_bp)
+    app.register_blueprint(song_bp)
+    app.register_blueprint(assets_bp)
+    app.register_blueprint(auth_bp)
 
     return app

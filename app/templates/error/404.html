@@ -9,7 +9,9 @@ block body %}
 
 <div class="content">
   <h1 class="error-code">404</h1>
-  <p class="error-message">You danced your way out of the venue</p>
+  <p class="error-message">
+    {{ error or 'You danced your way out of the venue' }}
+  </p>
 </div>
 
 {% endblock %}

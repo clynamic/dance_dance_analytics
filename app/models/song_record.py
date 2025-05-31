@@ -4,9 +4,11 @@ from simfile.types import Simfile
 from sqlalchemy import inspect, event
 
 from app.models.chart_record import ChartRecord
+from app.utils.autocomplete_columns import AutocompleteMixin
+from app.utils.base_model import BaseModel
 
 
-class SongRecord(db.Model):
+class SongRecord(BaseModel, AutocompleteMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -60,19 +62,6 @@ class SongRecord(db.Model):
             return float(value)
         except (TypeError, ValueError):
             return None
-
-    @classmethod
-    def _distinct_column_values(cls, column):
-        results = db.session.query(column).distinct().order_by(column).all()
-        return [r[0] for r in results if r[0]]
-
-    @classmethod
-    def get_title_autocomplete(cls):
-        return cls._distinct_column_values(cls.title)
-
-    @classmethod
-    def get_artist_autocomplete(cls):
-        return cls._distinct_column_values(cls.artist)
 
 
 @event.listens_for(SongRecord, "before_insert")

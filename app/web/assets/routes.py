@@ -2,10 +2,10 @@ from flask import Blueprint, abort, send_file
 from io import BytesIO
 from app.models.banner_record import BannerRecord
 
-assets_bp = Blueprint("assets_api", __name__)
+assets_bp = Blueprint("assets", __name__)
 
 
-@assets_bp.route("/banner/<uuid:id>")
+@assets_bp.route("/cdn/banner/<uuid:id>")
 def get_banner(id):
     banner = BannerRecord.query.get(id)
     if not banner or not banner.blob:

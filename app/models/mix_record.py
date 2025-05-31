@@ -6,8 +6,11 @@ from app.database import db
 from app.models.song_record import SongRecord
 from sqlalchemy import inspect, event
 
+from app.utils.autocomplete_columns import AutocompleteMixin
+from app.utils.base_model import BaseModel
 
-class MixRecord(db.Model):
+
+class MixRecord(BaseModel, AutocompleteMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -46,23 +49,6 @@ class MixRecord(db.Model):
         return cls.query.filter(
             or_(cls.id == uuid_obj if uuid_obj else False, cls.slug == identifier)
         ).first()
-
-    @classmethod
-    def _distinct_column_values(cls, column):
-        results = db.session.query(column).distinct().order_by(column).all()
-        return [r[0] for r in results if r[0]]
-
-    @classmethod
-    def get_title_autocomplete(cls):
-        return cls._distinct_column_values(cls.title)
-
-    @classmethod
-    def get_region_autocomplete(cls):
-        return cls._distinct_column_values(cls.region)
-
-    @classmethod
-    def get_system_autocomplete(cls):
-        return cls._distinct_column_values(cls.system)
 
 
 @event.listens_for(MixRecord, "before_insert")
