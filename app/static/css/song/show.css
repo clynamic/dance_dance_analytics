@@ -5,7 +5,7 @@
 
   height: 100%;
 
-  padding: var(--space-xl);
+  padding: var(--space-xl) 0;
   color: var(--foreground-color);
 }
 

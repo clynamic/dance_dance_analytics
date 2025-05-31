@@ -7,6 +7,10 @@ main {
   align-items: center;
 }
 
+.content {
+  padding: var(--space-xl) 0;
+}
+
 .song-list {
   display: flex;
   flex-direction: column;
