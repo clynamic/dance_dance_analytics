@@ -71,11 +71,11 @@ input {
 
   border: none;
 
-  background: var(--interact-color);
+  background: var(--background-color);
   color: var(--foreground-color);
-  border-radius: var(--border-radius);
 
-  outline: 2px solid transparent;
+  border-radius: var(--border-radius);
+  outline: 2px solid var(--interact-color);
 
   transition: background 0.2s ease-in-out, outline 0.2s ease-in-out;
 }
@@ -86,6 +86,17 @@ input:hover {
 
 input:focus {
   outline: 2px solid var(--primary-color);
+}
+
+input:disabled {
+  background: var(--surface-variant);
+  color: var(--foreground-color-muted);
+  cursor: not-allowed;
+}
+
+input[readonly] {
+  background: var(--surface-variant);
+  cursor: not-allowed;
 }
 
 a {
@@ -203,4 +214,10 @@ select:disabled {
 
 .form-field input {
   width: 100%;
+}
+
+.form-field .error {
+  color: var(--error-color);
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-xs);
 }
