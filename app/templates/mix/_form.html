@@ -81,11 +81,7 @@
       value="{{ mix.system if mix else '' }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for system in system_suggestions %}
-      <option value="{{ system }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="system"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -99,11 +95,7 @@
       value="{{ mix.region if mix else '' }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for region in region_suggestions %}
-      <option value="{{ region }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="region"></auto-complete>
   </div>
 
   <div class="form-field">

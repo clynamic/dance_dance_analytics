@@ -21,11 +21,7 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in title_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/song/autocomplete" field="title"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -38,11 +34,7 @@
       value="{{ request.args.get('artist', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in artist_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/song/autocomplete" field="artist"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -55,11 +47,7 @@
       value="{{ request.args.get('mix_title', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in mix_title_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="title"></auto-complete>
   </div>
 
   <!-- toggle for title translit -->

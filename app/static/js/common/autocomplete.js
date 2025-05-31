@@ -18,16 +18,21 @@ customElements.define(
       dropdown.hidden = true;
       this.appendChild(dropdown);
 
-      const getOptions = () =>
-        [...this.querySelectorAll("option")].map((o) => o.value);
+      const endpoint = this.getAttribute("endpoint");
+      if (!endpoint) {
+        console.warn('<auto-complete> requires an "endpoint" attribute');
+        return;
+      }
 
+      const field = this.getAttribute("field") || input.name;
+      const limit = this.getAttribute("limit") || 10;
+
+      let debounceTimeout = null;
       let currentIndex = -1;
-      let currentMatches = [];
 
       const renderDropdown = (matches) => {
         dropdown.innerHTML = "";
         currentIndex = -1;
-        currentMatches = matches;
 
         if (!matches.length) {
           dropdown.hidden = true;
@@ -48,12 +53,25 @@ customElements.define(
         dropdown.hidden = false;
       };
 
+      const fetchMatches = async () => {
+        const query = encodeURIComponent(input.value);
+        try {
+          const response = await fetch(
+            `${endpoint}.json?field=${field}&query=${query}&limit=${limit}`
+          );
+          if (response.ok) {
+            if (document.activeElement !== input) return;
+            const data = await response.json();
+            renderDropdown(data);
+          }
+        } catch (error) {
+          console.error("Autocomplete fetch error:", error);
+        }
+      };
+
       const updateMatches = () => {
-        const value = input.value.toLowerCase();
-        const matches = getOptions().filter((o) =>
-          o.toLowerCase().includes(value)
-        );
-        renderDropdown(matches);
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(fetchMatches, 500);
       };
 
       input.addEventListener("focus", updateMatches);

@@ -7,7 +7,7 @@ from app.utils.content_route import content_route, get_request_format
 from app.utils.query_builder import build_dynamic_query
 from app.utils.request_format import get_request_data
 from app.utils.response_format import respond
-from app.utils.responses import json_data
+from app.utils.responses import json_data, json_error
 from app.web.auth.guard import require_admin
 from app.database import db
 
@@ -39,13 +39,7 @@ def index():
             if any(song.title.lower() == term.lower() for term in title_terms):
                 return redirect(url_for("song.show", id=song.slug))
 
-    return render_template(
-        "song/index.html",
-        songs=songs,
-        title_suggestions=SongRecord.get_autocomplete("title"),
-        artist_suggestions=SongRecord.get_autocomplete("artist"),
-        mix_title_suggestions=MixRecord.get_autocomplete("title"),
-    )
+    return render_template("song/index.html", songs=songs)
 
 
 @song_bp.route("/song/create")
@@ -111,3 +105,16 @@ def show(id):
         return json_data(song)
 
     return render_template("song/show.html", song=song)
+
+
+@song_bp.route("/song/autocomplete.json")
+def song_autocomplete():
+    field = request.args.get("field")
+    query = request.args.get("query", "").strip()
+    limit = int(request.args.get("limit", 10))
+
+    if field not in {"title", "artist"}:
+        return json_error("Invalid field for autocomplete", status=400)
+
+    suggestions = SongRecord.get_autocomplete(field, query=query, limit=limit)
+    return json_data(suggestions)

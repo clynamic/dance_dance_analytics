@@ -40,25 +40,13 @@ def index():
             if any(mix.title.lower() == term.lower() for term in title_terms):
                 return redirect(url_for("mix.show", id=mix.slug))
 
-    return render_template(
-        "mix/index.html",
-        mixes=mixes,
-        title_suggestions=[
-            m.title for m in MixRecord.query.with_entities(MixRecord.title).all()
-        ],
-        system_suggestions=MixRecord.get_autocomplete("system"),
-        region_suggestions=MixRecord.get_autocomplete("region"),
-    )
+    return render_template("mix/index.html", mixes=mixes)
 
 
 @mix_bp.route("/mix/create")
 @require_admin
 def create():
-    return render_template(
-        "mix/create.html",
-        region_suggestions=MixRecord.get_autocomplete("region"),
-        system_suggestions=MixRecord.get_autocomplete("system"),
-    )
+    return render_template("mix/create.html")
 
 
 @mix_bp.route("/mix/create.json", methods=["POST"])
@@ -77,47 +65,6 @@ def create_mix():
 
         return json_success(
             "Mix created", {"id": str(mix.id), "slug": mix.slug}, status=201
-        )
-
-    return json_error("Validation failed", form.errors)
-
-
-@mix_bp.route("/mix/<id>/edit")
-@require_admin
-def edit(id):
-    mix = MixRecord.get(id)
-
-    if not mix:
-        abort(404)
-
-    return render_template(
-        "mix/edit.html",
-        mix=mix,
-        region_suggestions=MixRecord.get_autocomplete("region"),
-        system_suggestions=MixRecord.get_autocomplete("system"),
-    )
-
-
-@mix_bp.route("/mix/<id>.json", methods=["PATCH"])
-@require_admin
-def edit_mix(id):
-    mix = MixRecord.get(id)
-    if not mix:
-        return json_error("Mix not found", status=404)
-
-    form = MixEditForm()
-
-    if form.validate_on_submit():
-        form.update_entity(mix)
-
-        if mix.banner:
-            db.session.add(mix.banner)
-            db.session.flush()
-        db.session.add(mix)
-        db.session.commit()
-
-        return json_success(
-            "Mix updated", {"id": str(mix.id), "slug": mix.slug}, status=200
         )
 
     return json_error("Validation failed", form.errors)
@@ -147,3 +94,52 @@ def show(id):
         return json_data(mix)
 
     return render_template("mix/show.html", mix=mix)
+
+
+@mix_bp.route("/mix/<id>/edit")
+@require_admin
+def edit(id):
+    mix = MixRecord.get(id)
+
+    if not mix:
+        abort(404)
+
+    return render_template("mix/edit.html", mix=mix)
+
+
+@mix_bp.route("/mix/<id>.json", methods=["PATCH"])
+@require_admin
+def edit_mix(id):
+    mix = MixRecord.get(id)
+    if not mix:
+        return json_error("Mix not found", status=404)
+
+    form = MixEditForm()
+
+    if form.validate_on_submit():
+        form.update_entity(mix)
+
+        if mix.banner:
+            db.session.add(mix.banner)
+            db.session.flush()
+        db.session.add(mix)
+        db.session.commit()
+
+        return json_success(
+            "Mix updated", {"id": str(mix.id), "slug": mix.slug}, status=200
+        )
+
+    return json_error("Validation failed", form.errors)
+
+
+@mix_bp.route("/mix/autocomplete.json")
+def mix_autocomplete():
+    field = request.args.get("field")
+    query = request.args.get("query", "").strip()
+    limit = int(request.args.get("limit", 10))
+
+    if field not in {"system", "region", "title"}:
+        return json_error("Invalid field for autocomplete", status=400)
+
+    suggestions = MixRecord.get_autocomplete(field, query=query, limit=limit)
+    return json_data(suggestions)

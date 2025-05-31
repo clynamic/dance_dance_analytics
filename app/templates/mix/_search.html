@@ -21,11 +21,7 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in title_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="title"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -38,11 +34,7 @@
       value="{{ request.args.get('system', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in system_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="system"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -55,11 +47,7 @@
       value="{{ request.args.get('region', '') }}"
       autocomplete="off"
     />
-    <auto-complete>
-      {% for suggestion in region_suggestions %}
-      <option value="{{ suggestion }}"></option>
-      {% endfor %}
-    </auto-complete>
+    <auto-complete endpoint="/mix/autocomplete" field="region"></auto-complete>
   </div>
 
   <button type="submit">
