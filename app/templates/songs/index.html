@@ -4,15 +4,15 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/song/index.css') }}"
+    href="{{ url_for('static', filename='css/songs/index.css') }}"
   />
 </partial-head>
 
 <partial-aside class="app-sidebar">
   {% if mix %} {% include "mixes/_action.html" %} {% else %} {% include
-  "song/_action.html" %} {% endif %}
+  "songs/_action.html" %} {% endif %}
   <hr />
-  {% include "song/_search.html" %}
+  {% include "songs/_search.html" %}
 </partial-aside>
 
 <div class="content">
@@ -22,7 +22,7 @@
     <p class="result-count">{{ songs|length }} results</p>
   </div>
   <div class="song-list">
-    {% for song in songs %} {% include "song/_preview.html" %} {% else %}
+    {% for song in songs %} {% include "songs/_preview.html" %} {% else %}
     <div class="empty-song-list">
       <i class="fas fa-folder-open fa-2x"></i>
       <p>No songs found.</p>

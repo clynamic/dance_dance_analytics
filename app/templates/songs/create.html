@@ -3,7 +3,7 @@ block body %}
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/song/create.css') }}"
+    href="{{ url_for('static', filename='css/songs/create.css') }}"
   />
 </partial-head>
 
@@ -19,7 +19,7 @@ block body %}
   </div>
   {% else %}
   <h2>Upload Simfiles</h2>
-  <div class="card">{% include "song/_form.html" %}</div>
+  <div class="card">{% include "songs/_form.html" %}</div>
   {% endif %}
 </div>
 

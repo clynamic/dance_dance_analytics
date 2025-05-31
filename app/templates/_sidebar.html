@@ -15,7 +15,7 @@ request.path.startswith(path_prefix) %}
 
 <nav class="nav-links">
   {{ nav_link('Mixes', 'fa-music', endpoint='mixes.index') }} {{
-  nav_link('Songs', 'fa-compact-disc', endpoint='song.index') }}
+  nav_link('Songs', 'fa-compact-disc', endpoint='songs.index') }}
   <a href="#"> <i class="fas fa-play"></i> Charts </a>
   {% if session.get("is_admin") %} {{ nav_link('Admin', 'fa-user-shield',
   endpoint='auth.admin_page') }} {% else %} {{ nav_link('Login',

@@ -11,10 +11,10 @@ from app.utils.responses import json_data, json_error
 from app.web.auth.guard import require_admin
 from app.database import db
 
-song_bp = Blueprint("song", __name__)
+song_bp = Blueprint("songs", __name__)
 
 
-@content_route(song_bp, "/song")
+@content_route(song_bp, "/songs")
 def index():
     mix_id = get_single_query_arg("mix_id")
     mix_title = get_single_query_arg("mix_title")
@@ -53,18 +53,18 @@ def index():
         term = title_terms[0].lower()
         matches = [song for song in songs if song.title.lower() == term]
         if len(matches) == 1:
-            return redirect(url_for("song.show", id=matches[0].slug))
+            return redirect(url_for("songs.show", id=matches[0].slug))
 
-    return render_template("song/index.html", songs=songs)
+    return render_template("songs/index.html", songs=songs)
 
 
-@song_bp.route("/song/create")
+@song_bp.route("/songs/create")
 def create():
     mixes = MixRecord.query.order_by(MixRecord.release.desc()).all()
-    return render_template("song/create.html", mixes=mixes)
+    return render_template("songs/create.html", mixes=mixes)
 
 
-@content_route(song_bp, "/song/create", methods=["POST"])
+@content_route(song_bp, "/songs/create", methods=["POST"])
 @require_admin
 def create_song():
     data = get_request_data()
@@ -74,7 +74,7 @@ def create_song():
     if not simfile_text or not mix_id:
         return respond(
             {"error": "Simfile and mix required", "form_data": request.form},
-            template="song/create.html",
+            template="songs/create.html",
             status=400,
         )
 
@@ -85,19 +85,19 @@ def create_song():
         db.session.commit()
         return respond(
             {"id": str(record.id), "slug": record.song.slug},
-            template="song/show.html",
+            template="songs/show.html",
             status=201,
         )
     except Exception as e:
         db.session.rollback()
         return respond(
             {"error": "Failed to create song", "form_data": request.form},
-            template="song/create.html",
+            template="songs/create.html",
             status=400,
         )
 
 
-@content_route(song_bp, "/song/<id>")
+@content_route(song_bp, "/songs/<id>")
 def show(id):
     song = SongRecord.get(id)
 
@@ -111,10 +111,10 @@ def show(id):
     if request_is_json():
         return json_data(song)
 
-    return render_template("song/show.html", song=song)
+    return render_template("songs/show.html", song=song)
 
 
-@song_bp.route("/song/autocomplete.json")
+@song_bp.route("/songs/autocomplete.json")
 def song_autocomplete():
     field = request.args.get("field")
     query = request.args.get("query", "").strip()

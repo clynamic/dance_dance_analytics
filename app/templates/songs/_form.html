@@ -1,7 +1,7 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/song/_form.css') }}"
+    href="{{ url_for('static', filename='css/songs/_form.css') }}"
   />
   <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
 </partial-head>
@@ -108,7 +108,7 @@
     for (const { file, element } of fileData) {
       const text = await file.text();
       const response = await fetch(
-        `/song/create.json?mix_id=${encodeURIComponent(mixId)}`,
+        `/songs/create.json?mix_id=${encodeURIComponent(mixId)}`,
         {
           method: "POST",
           ...getCSRFHeaders(),

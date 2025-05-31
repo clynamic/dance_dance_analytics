@@ -1,7 +1,7 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/song/_search.css') }}"
+    href="{{ url_for('static', filename='css/songs/_search.css') }}"
   />
   <link
     rel="stylesheet"
@@ -10,7 +10,7 @@
   <script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
 </partial-head>
 
-<form id="song-search-form" method="get" action="{{ url_for('song.index') }}">
+<form id="song-search-form" method="get" action="{{ url_for('songs.index') }}">
   {% if mix %}
   <input type="hidden" name="mix_id" value="{{ mix.id }}" />
   {% endif %}
@@ -25,7 +25,7 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/song/autocomplete" field="title"></auto-complete>
+    <auto-complete endpoint="/songs/autocomplete" field="title"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -38,7 +38,10 @@
       value="{{ request.args.get('artist', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/song/autocomplete" field="artist"></auto-complete>
+    <auto-complete
+      endpoint="/songs/autocomplete"
+      field="artist"
+    ></auto-complete>
   </div>
 
   {% if not mix %}

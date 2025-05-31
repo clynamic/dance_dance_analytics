@@ -1,12 +1,12 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/song/_preview.css') }}"
+    href="{{ url_for('static', filename='css/songs/_preview.css') }}"
   />
 </partial-head>
 
 <a
-  href="{{ url_for('song.show', id=song.slug) }}"
+  href="{{ url_for('songs.show', id=song.slug) }}"
   class="link-wrapper song-preview-link"
   title="{{ song.title }}"
 >

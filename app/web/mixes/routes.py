@@ -78,7 +78,7 @@ def show(id):
 
     songs = query.order_by(SongRecord.title).all()
 
-    return render_template("song/index.html", songs=songs, mix=mix)
+    return render_template("songs/index.html", songs=songs, mix=mix)
 
 
 @mix_bp.route("/mixes/<id>/edit")

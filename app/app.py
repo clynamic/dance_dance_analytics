@@ -7,7 +7,7 @@ from app.utils.partials import inject_partials
 from .database import db
 from app.web.routes import web_bp
 from app.web.mixes.routes import mix_bp
-from app.web.song.routes import song_bp
+from app.web.songs.routes import song_bp
 from app.web.assets.routes import assets_bp
 from app.web.auth.routes import auth_bp
 
