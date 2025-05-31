@@ -1,3 +1,5 @@
+from typing import Any
+from flask.typing import ResponseReturnValue
 from werkzeug.exceptions import HTTPException
 import traceback
 from flask import Blueprint, jsonify, render_template, request, current_app
@@ -20,25 +22,27 @@ def not_found(_):
 
 
 @web_bp.errorhandler(Exception)
-def handle_api_exception(e):
+def handle_api_exception(e) -> ResponseReturnValue:
     is_dev = current_app.config.get("ENV") == "development"
 
     if isinstance(e, HTTPException):
-        return jsonify({"status": "error", "message": e.description}), e.code
+        return json_error(e.description or "An error occurred", e.code)
 
-    response = {
-        "status": "error",
-        "message": "Unexpected server error",
-    }
+    message = "Unexpected server error"
+    debug = None
 
     if is_dev:
-        response["debug"] = {
+        debug = {
             "type": type(e).__name__,
             "message": str(e),
             "traceback": traceback.format_exc().splitlines(),
         }
 
-    return jsonify(response), 500
+    return json_error(
+        message,
+        errors=debug,
+        status=500,
+    )
 
 
 @web_bp.route("/")
