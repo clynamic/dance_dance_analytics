@@ -1,36 +1,39 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask import Blueprint, render_template, abort
 from app.api.auth.guard import require_admin
-from app.form.mix.index import MixIndexForm
 from app.models.mix_record import MixRecord
 import uuid
+
+from app.utils.query_builder import build_dynamic_query
 
 mix_web_bp = Blueprint("mix_web", __name__)
 
 
 @mix_web_bp.route("/")
 def index():
-    form = MixIndexForm(request.args)
     query = MixRecord.query
 
-    if form.title.data:
-        query = query.filter(MixRecord.title.ilike(f"%{form.title.data}%"))
-    if form.system.data:
-        query = query.filter(MixRecord.system.ilike(f"%{form.system.data}%"))
-    if form.region.data:
-        query = query.filter(MixRecord.region.ilike(f"%{form.region.data}%"))
+    QUERY_FIELDS = {
+        "title": ("text", MixRecord.title),
+        "system": ("text", MixRecord.system),
+        "region": ("text", MixRecord.region),
+        "id": ("id", [MixRecord.id, MixRecord.slug]),
+        "release": ("date", MixRecord.release),
+    }
+
+    query = build_dynamic_query(query, request.args, QUERY_FIELDS)
 
     mixes = query.order_by(MixRecord.release.desc()).all()
 
-    if form.title.data:
+    title_terms = request.args.getlist("title")
+    if title_terms:
         for mix in mixes:
-            if mix.title.lower() == form.title.data.lower():
+            if any(mix.title.lower() == term.lower() for term in title_terms):
                 return redirect(url_for("web.mix_web.show", id=mix.slug))
 
     return render_template(
         "mix/index.html",
         mixes=mixes,
-        form=form,
         title_suggestions=[
             m.title for m in MixRecord.query.with_entities(MixRecord.title).all()
         ],
