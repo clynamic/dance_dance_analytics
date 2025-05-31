@@ -1,7 +1,7 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/mix/_search.css') }}"
+    href="{{ url_for('static', filename='css/mixes/_search.css') }}"
   />
   <link
     rel="stylesheet"
@@ -10,7 +10,7 @@
   <script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
 </partial-head>
 
-<form id="mix-search-form" method="get" action="{{ url_for('mix.index') }}">
+<form id="mix-search-form" method="get" action="{{ url_for('mixes.index') }}">
   <div class="form-field">
     <label for="title">Title</label>
     <input
@@ -21,7 +21,7 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mix/autocomplete" field="title"></auto-complete>
+    <auto-complete endpoint="/mixes/autocomplete" field="title"></auto-complete>
   </div>
 
   <div class="form-field">
@@ -34,7 +34,10 @@
       value="{{ request.args.get('system', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mix/autocomplete" field="system"></auto-complete>
+    <auto-complete
+      endpoint="/mixes/autocomplete"
+      field="system"
+    ></auto-complete>
   </div>
 
   <div class="form-field">
@@ -47,7 +50,10 @@
       value="{{ request.args.get('region', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mix/autocomplete" field="region"></auto-complete>
+    <auto-complete
+      endpoint="/mixes/autocomplete"
+      field="region"
+    ></auto-complete>
   </div>
 
   <button type="submit">

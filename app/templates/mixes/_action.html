@@ -1,7 +1,7 @@
 {% if session.get("is_admin") %}
 <hr />
 <div class="sidebar-actions">
-  <a href="{{ url_for('mix.edit', id=mix.slug) }}" class="button">
+  <a href="{{ url_for('mixes.edit', id=mix.slug) }}" class="button">
     <i class="fas fa-pen"></i> Edit
   </a>
   <a href="/404" class="button danger"> <i class="fas fa-trash"></i> Delete </a>

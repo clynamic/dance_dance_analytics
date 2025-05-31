@@ -47,4 +47,4 @@ def handle_api_exception(e) -> ResponseReturnValue:
 
 @web_bp.route("/")
 def index():
-    return redirect(url_for("mix.index"))
+    return redirect(url_for("mixes.index"))

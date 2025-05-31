@@ -2,7 +2,7 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/mix/index.css') }}"
+    href="{{ url_for('static', filename='css/mixes/index.css') }}"
   />
 </partial-head>
 
@@ -12,7 +12,7 @@
   <hr />
 
   <div class="sidebar-actions">
-    <a href="{{ url_for('mix.create') }}" class="button">
+    <a href="{{ url_for('mixes.create') }}" class="button">
       <i class="fa fa-plus"></i>
       New Mix
     </a>
@@ -21,7 +21,7 @@
   {% endif %}
 
   <hr />
-  {% include "mix/_search.html" %}
+  {% include "mixes/_search.html" %}
 </partial-aside>
 
 <div class="content">
@@ -30,7 +30,7 @@
     <p class="result-count">{{ mixes|length }} results</p>
   </div>
   <div class="mix-list">
-    {% for mix in mixes %} {% include "mix/_preview.html" %} {% else %}
+    {% for mix in mixes %} {% include "mixes/_preview.html" %} {% else %}
     <div class="empty-mix-list">
       <i class="fas fa-folder-open fa-2x"></i>
       <p>No mixes found.</p>

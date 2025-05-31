@@ -11,10 +11,10 @@ from app.models.mix_record import MixRecord
 from app.database import db
 
 
-mix_bp = Blueprint("mix", __name__)
+mix_bp = Blueprint("mixes", __name__)
 
 
-@content_route(mix_bp, "/mix")
+@content_route(mix_bp, "/mixes")
 def index():
     query = MixRecord.query_with_filters(request.args)
 
@@ -27,18 +27,18 @@ def index():
     if title_terms:
         for mix in mixes:
             if any(mix.title.lower() == term.lower() for term in title_terms):
-                return redirect(url_for("mix.show", id=mix.slug))
+                return redirect(url_for("mixes.show", id=mix.slug))
 
-    return render_template("mix/index.html", mixes=mixes)
+    return render_template("mixes/index.html", mixes=mixes)
 
 
-@mix_bp.route("/mix/create")
+@mix_bp.route("/mixes/create")
 @require_admin
 def create():
-    return render_template("mix/create.html")
+    return render_template("mixes/create.html")
 
 
-@mix_bp.route("/mix/create.json", methods=["POST"])
+@mix_bp.route("/mixes/create.json", methods=["POST"])
 @require_admin
 def create_mix():
     form = MixCreateForm()
@@ -59,7 +59,7 @@ def create_mix():
     return json_error("Validation failed", form.errors)
 
 
-@content_route(mix_bp, "/mix/<id>")
+@content_route(mix_bp, "/mixes/<id>")
 def show(id):
     mix = MixRecord.get(id)
 
@@ -81,7 +81,7 @@ def show(id):
     return render_template("song/index.html", songs=songs, mix=mix)
 
 
-@mix_bp.route("/mix/<id>/edit")
+@mix_bp.route("/mixes/<id>/edit")
 @require_admin
 def edit(id):
     mix = MixRecord.get(id)
@@ -89,10 +89,10 @@ def edit(id):
     if not mix:
         abort(404)
 
-    return render_template("mix/edit.html", mix=mix)
+    return render_template("mixes/edit.html", mix=mix)
 
 
-@mix_bp.route("/mix/<id>.json", methods=["PATCH"])
+@mix_bp.route("/mixes/<id>.json", methods=["PATCH"])
 @require_admin
 def edit_mix(id):
     mix = MixRecord.get(id)
@@ -117,7 +117,7 @@ def edit_mix(id):
     return json_error("Validation failed", form.errors)
 
 
-@mix_bp.route("/mix/autocomplete.json")
+@mix_bp.route("/mixes/autocomplete.json")
 def mix_autocomplete():
     field = request.args.get("field")
     query = request.args.get("query", "").strip()

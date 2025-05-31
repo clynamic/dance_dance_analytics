@@ -3,12 +3,12 @@ body %}
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/mix/create.css') }}"
+    href="{{ url_for('static', filename='css/mixes/create.css') }}"
   />
 </partial-head>
 
 <div class="content">
   <h2>Create Mix</h2>
-  <div class="card">{% include "mix/_form.html" %}</div>
+  <div class="card">{% include "mixes/_form.html" %}</div>
 </div>
 {% endblock %}

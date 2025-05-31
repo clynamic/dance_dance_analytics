@@ -6,7 +6,7 @@ from app.utils.empty_query import strip_empty_query_params
 from app.utils.partials import inject_partials
 from .database import db
 from app.web.routes import web_bp
-from app.web.mix.routes import mix_bp
+from app.web.mixes.routes import mix_bp
 from app.web.song.routes import song_bp
 from app.web.assets.routes import assets_bp
 from app.web.auth.routes import auth_bp

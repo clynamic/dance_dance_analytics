@@ -1,7 +1,7 @@
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/mix/_form.css') }}"
+    href="{{ url_for('static', filename='css/mixes/_form.css') }}"
   />
   <link
     rel="stylesheet"
@@ -81,7 +81,10 @@
       value="{{ mix.system if mix else '' }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mix/autocomplete" field="system"></auto-complete>
+    <auto-complete
+      endpoint="/mixes/autocomplete"
+      field="system"
+    ></auto-complete>
   </div>
 
   <div class="form-field">
@@ -95,7 +98,10 @@
       value="{{ mix.region if mix else '' }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mix/autocomplete" field="region"></auto-complete>
+    <auto-complete
+      endpoint="/mixes/autocomplete"
+      field="region"
+    ></auto-complete>
   </div>
 
   <div class="form-field">
@@ -124,7 +130,7 @@
     resultEl.innerText = "";
 
     try {
-      const response = await fetch("/mix/create.json", {
+      const response = await fetch("/mixes/create.json", {
         method: "POST",
         body: getCSRFFormData(formData),
         ...getCSRFHeaders(),
@@ -135,7 +141,7 @@
       if (result.status === "success") {
         const mixId = result.data.id;
         const slug = result.data.slug;
-        window.location.href = `/mix/${slug}`;
+        window.location.href = `/mixes/${slug}`;
       } else {
         resultEl.innerText =
           result.message +
