@@ -1,15 +1,9 @@
-<partial-head
-  ><link
+<partial-head once>
+  <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/_sidebar.css') }}"
   />
 </partial-head>
-
-<div class="sidebar-header">
-  <h1 class="link-wrapper">
-    <a href="{{ url_for('web.index') }}" title="Dance Dance Analytics">DDA</a>
-  </h1>
-</div>
 
 {% macro nav_link(label, icon, endpoint=None) %} {% set href = url_for(endpoint)
 %} {% set path_prefix = href %} {% set is_active =
@@ -28,3 +22,37 @@ request.path.startswith(path_prefix) %}
   {% else %} {{ nav_link('Login', 'fa-sign-in-alt', endpoint='auth.login_page')
   }} {% endif %}
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.querySelector(".app-sidebar");
+    const scrim = document.querySelector(".scrim");
+    if (!sidebar || !scrim) return;
+
+    const openSidebar = () => {
+      sidebar.classList.add("sidebar-open");
+      scrim.classList.add("visible");
+    };
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("sidebar-open");
+      scrim.classList.remove("visible");
+    };
+
+    const toggleSidebar = () => {
+      if (sidebar.classList.contains("sidebar-open")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    };
+
+    scrim.addEventListener("click", closeSidebar);
+
+    window.sidebarControls = {
+      open: openSidebar,
+      close: closeSidebar,
+      toggle: toggleSidebar,
+    };
+  });
+</script>

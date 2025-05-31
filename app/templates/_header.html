@@ -1,0 +1,28 @@
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/_header.css') }}"
+  />
+</partial-head>
+
+<div class="header-content">
+  <h1 class="link-wrapper">
+    <a href="{{ url_for('web.index') }}" title="Dance Dance Analytics">DDA</a>
+  </h1>
+
+  <button id="hamburger-toggle" aria-label="Toggle Sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("hamburger-toggle");
+    if (!toggleButton) return;
+
+    toggleButton.addEventListener("click", function () {
+      if (!window.sidebarControls) return;
+      window.sidebarControls.toggle();
+    });
+  });
+</script>

@@ -50,11 +50,3 @@
   color: var(--foreground-color-muted);
   font-size: var(--font-size-s);
 }
-
-.mix-song-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 600px;
-  gap: var(--space-m);
-}

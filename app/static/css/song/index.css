@@ -4,6 +4,7 @@
   margin: auto 0;
   padding: var(--space-xl) 0;
   width: 600px;
+  max-width: 100%;
 }
 
 .song-list {

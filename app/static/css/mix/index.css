@@ -3,6 +3,8 @@
 .content {
   margin: auto 0;
   padding: var(--space-xl) 0;
+  width: 600px;
+  max-width: 100%;
 }
 
 .mix-list {
@@ -10,7 +12,6 @@
   flex-direction: column;
 
   gap: var(--space-m);
-  width: 600px;
 }
 
 .empty-mix-list {

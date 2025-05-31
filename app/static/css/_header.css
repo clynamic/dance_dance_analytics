@@ -1,0 +1,28 @@
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--surface-color);
+  padding: var(--space-s);
+}
+
+.header-content h1 a {
+  font-size: var(--font-size-l);
+}
+
+#hamburger-toggle {
+  background: transparent;
+  font-size: var(--font-size-l);
+}
+
+@media (min-width: 769px) {
+  .header-content {
+    padding: var(--space-m);
+    padding-bottom: 0;
+  }
+
+  #hamburger-toggle {
+    display: none;
+  }
+}

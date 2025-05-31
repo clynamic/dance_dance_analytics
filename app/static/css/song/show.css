@@ -87,6 +87,6 @@
 .song-chart-list {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 600px;
+  width: 600px;
+  max-width: 100%;
 }
