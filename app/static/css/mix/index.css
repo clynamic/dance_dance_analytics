@@ -1,10 +1,8 @@
 @import url("../common/result_header.css");
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.content {
+  margin: auto 0;
+  padding: var(--space-xl) 0;
 }
 
 .mix-list {

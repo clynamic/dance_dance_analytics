@@ -1,11 +1,5 @@
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .content {
+  margin: 0 auto;
   width: 600px;
   max-width: 100%;
 }

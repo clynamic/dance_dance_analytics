@@ -5,8 +5,22 @@ body {
   min-height: 100vh;
 }
 
+body > aside {
+  grid-column: 1;
+  grid-row: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 body > main {
   grid-column: 2;
   grid-row: 1;
   padding: var(--space-m);
+  overflow-y: auto;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

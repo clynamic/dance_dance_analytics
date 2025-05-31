@@ -1,14 +1,9 @@
 @import url("../common/result_header.css");
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .content {
+  margin: auto 0;
   padding: var(--space-xl) 0;
+  width: 600px;
 }
 
 .song-list {
@@ -16,7 +11,6 @@ main {
   flex-direction: column;
 
   gap: var(--space-m);
-  width: 600px;
 }
 
 .empty-song-list {
