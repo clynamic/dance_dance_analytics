@@ -13,23 +13,8 @@ class BaseModel(db.Model):
         return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
     @classmethod
-    def get(cls, identifier):
-        uuid_obj = None
-        try:
-            uuid_obj = uuid.UUID(identifier)
-        except (ValueError, TypeError):
-            pass
-
-        filters = []
-        if uuid_obj:
-            filters.append(cls.id == uuid_obj)
-        if hasattr(cls, "slug"):
-            filters.append(cls.slug == identifier)
-
-        if not filters:
-            return None
-
-        return cls.query.filter(or_(*filters)).first()
+    def by_id(cls, id):
+        return db.session.query(cls).filter_by(id=id).one_or_none()
 
     @classmethod
     def query_with_filters(cls, query_params, custom_fields=None, extra_fields=None):

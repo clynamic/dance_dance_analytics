@@ -8,7 +8,7 @@ from flask import (
     current_app,
     url_for,
 )
-from app.utils.content_route import content_route, request_is_json
+from app.utils.responses import model_route, request_is_json
 from app.utils.responses import json_success, json_error
 
 auth_bp = Blueprint("auth", __name__)
@@ -19,7 +19,7 @@ def login_page():
     return render_template("auth/login.html")
 
 
-@content_route(auth_bp, "/auth/login", methods=["POST"])
+@model_route(auth_bp, "/auth/login", methods=["POST"])
 def login():
     key = (
         request.json.get("api_key") if request.is_json else request.form.get("api_key")
@@ -46,7 +46,7 @@ def login():
     return redirect(url_for("web.index"))
 
 
-@content_route(auth_bp, "/auth/logout", methods=["POST"])
+@model_route(auth_bp, "/auth/logout", methods=["POST"])
 def logout():
     session.clear()
     if request_is_json():

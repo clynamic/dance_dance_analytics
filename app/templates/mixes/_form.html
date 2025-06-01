@@ -89,7 +89,7 @@
       autocomplete="off"
     />
     <auto-complete
-      endpoint="/mixes/autocomplete"
+      endpoint="{{ url_for('mixes.autocomplete') }}"
       field="system"
     ></auto-complete>
     {% if errors and errors.system %}
@@ -109,7 +109,7 @@
       autocomplete="off"
     />
     <auto-complete
-      endpoint="/mixes/autocomplete"
+      endpoint="{{ url_for('mixes.autocomplete') }}"
       field="region"
     ></auto-complete>
     {% if errors and errors.region %}

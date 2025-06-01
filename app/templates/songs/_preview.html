@@ -6,7 +6,7 @@
 </partial-head>
 
 <a
-  href="{{ url_for('songs.show', id=song.slug) }}"
+  href="{{ url_for('songs.show', mix_slug=song.mix.slug, song_slug=song.slug) }}"
   class="link-wrapper song-preview-link"
   title="{{ song.title }}"
 >

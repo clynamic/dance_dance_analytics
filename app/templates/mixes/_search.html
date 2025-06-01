@@ -21,7 +21,10 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mixes/autocomplete" field="title"></auto-complete>
+    <auto-complete
+      endpoint="{{ url_for('mixes.autocomplete') }}"
+      field="title"
+    ></auto-complete>
   </div>
 
   <div class="form-field">
@@ -35,7 +38,7 @@
       autocomplete="off"
     />
     <auto-complete
-      endpoint="/mixes/autocomplete"
+      endpoint="{{ url_for('mixes.autocomplete') }}"
       field="system"
     ></auto-complete>
   </div>
@@ -51,7 +54,7 @@
       autocomplete="off"
     />
     <auto-complete
-      endpoint="/mixes/autocomplete"
+      endpoint="{{ url_for('mixes.autocomplete') }}"
       field="region"
     ></auto-complete>
   </div>

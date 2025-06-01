@@ -1,0 +1,28 @@
+.content {
+  margin: auto 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 5rem;
+  margin-bottom: var(--space-m);
+}
+
+.subtitle {
+  font-size: 2rem;
+  margin-bottom: var(--space-l);
+}
+
+.message {
+  font-size: var(--font-size-l);
+  color: var(--foreground-color-muted);
+}
+
+.debug-message {
+  font-size: var(--font-size-m);
+  color: var(--foreground-color-muted);
+  margin-top: var(--space-l);
+  text-align: left;
+  font-family: "Menlo", "Consolas", "DejaVu Sans Mono", "Roboto Mono",
+    "Courier New", monospace;
+}

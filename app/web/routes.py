@@ -1,35 +1,29 @@
-from typing import Any
 from flask.typing import ResponseReturnValue
 from werkzeug.exceptions import HTTPException
 import traceback
-from flask import Blueprint, jsonify, render_template, request, current_app
-from flask import render_template, redirect, url_for
-from app.utils.responses import json_error
+from flask import Blueprint, render_template, request, current_app
+from flask import render_template
+from app.utils.responses import json_error, request_is_json
+from app.web.mixes import routes as mixes
 
 web_bp = Blueprint("web", __name__)
 
 
-@web_bp.app_errorhandler(404)
-def not_found(_):
-    if (
-        request.path.endswith(".json")
-        or request.accept_mimetypes["application/json"]
-        > request.accept_mimetypes["text/html"]
-    ):
-        return json_error("Not found", 404)
-
-    return render_template("error/404.html"), 404
-
-
-@web_bp.errorhandler(Exception)
-def handle_api_exception(e) -> ResponseReturnValue:
+@web_bp.app_errorhandler(Exception)
+def handle_exception(e) -> ResponseReturnValue:
     is_dev = current_app.config.get("ENV") == "development"
-
-    if isinstance(e, HTTPException):
-        return json_error(e.description or "An error occurred", e.code)
-
+    code = 500
     message = "Unexpected server error"
     debug = None
+
+    if is_dev:
+        traceback.print_exc()
+    else:
+        current_app.logger.error(f"Unhandled exception: {e}", exc_info=e)
+
+    if isinstance(e, HTTPException):
+        code = e.code if e.code else 500
+        message = e.description or message
 
     if is_dev:
         debug = {
@@ -38,13 +32,22 @@ def handle_api_exception(e) -> ResponseReturnValue:
             "traceback": traceback.format_exc().splitlines(),
         }
 
-    return json_error(
-        message,
-        errors=debug,
-        status=500,
+    if request_is_json():
+        return json_error(
+            message,
+            errors=debug,
+            status=code,
+        )
+
+    template = (
+        "error/404.html"
+        if code == 404
+        else "error/500.html" if code == 500 else "error/generic.html"
     )
+
+    return render_template(template, message=message, debug=debug), code
 
 
 @web_bp.route("/")
 def index():
-    return redirect(url_for("mixes.index"))
+    return mixes.index()

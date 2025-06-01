@@ -38,6 +38,19 @@ class MixRecord(BaseModel, AutocompleteMixin):
         "release": ("date", release),
     }
 
+    @classmethod
+    def by_slug(cls, slug: str):
+        return db.session.query(cls).filter_by(slug=slug).one_or_none()
+
+    @classmethod
+    def get(cls, slug=None, id=None):
+        if slug:
+            return cls.by_slug(slug)
+        elif id:
+            return cls.by_id(id)
+        else:
+            raise ValueError("Either slug or id must be provided.")
+
     @property
     def song_count(self) -> int:
         return (

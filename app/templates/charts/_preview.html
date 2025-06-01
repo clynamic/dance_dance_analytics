@@ -6,7 +6,7 @@
 </partial-head>
 
 <a
-  href="{{ url_for('charts.show', id=chart.id) }}"
+  href="{{ url_for('charts.show', mix_slug=chart.song.mix.slug, song_slug=chart.song.slug, chart_slug=chart.slug) }}"
   class="link-wrapper chart-preview-link"
   title="{{ chart.stepstype }}"
 >

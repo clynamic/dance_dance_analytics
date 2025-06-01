@@ -7,11 +7,13 @@
 </partial-head>
 
 <form id="song-form">
+  {{ form.hidden_tag() }}
+
   <div class="form-field">
     <label for="mix">Select Mix</label>
-    <select id="mix" name="mix" required>
+    <select id="mix" name="mix_slug" required>
       {% for mix in mixes %}
-      <option value="{{ mix.id }}" data-slug="{{ mix.slug }}">
+      <option value="{{ mix.slug }}">
         {{ mix.title }} ({{ mix.system }} - {{ mix.region }})
       </option>
       {% endfor %}
@@ -23,15 +25,15 @@
       <input
         type="file"
         id="sm-files"
-        name="files"
+        name="simfiles"
         multiple
-        accept=".sm"
+        accept=".sm,.ssc"
         hidden
       />
 
       <div class="file-upload-placeholder">
         <i class="fas fa-file-arrow-up"></i>
-        <span>Click or drag .sm files here</span>
+        <span>Click or drag sim files here</span>
       </div>
     </label>
   </div>
@@ -48,27 +50,19 @@
     const mix = params.get("mix");
 
     if (mix) {
-      let found = false;
       for (const option of mixSelect.options) {
-        if (option.value === mix || option.dataset.slug === mix) {
+        if (option.value === mix) {
           option.selected = true;
-          found = true;
           break;
         }
       }
-      if (!found) {
-        console.warn(`Mix "${mix}" not found in dropdown.`);
-      }
     }
   });
-</script>
 
-<script>
   const dropLabel = document.getElementById("drop-label");
   const input = document.getElementById("sm-files");
   const list = document.getElementById("file-list");
   const form = document.getElementById("song-form");
-
   const fileData = [];
 
   dropLabel.addEventListener("dragover", (e) => {
@@ -95,7 +89,6 @@
       entry.className = "file-entry";
       entry.textContent = file.name + " - Pending";
       list.appendChild(entry);
-
       fileData.push({ file, element: entry });
     }
   }
@@ -103,18 +96,22 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const mixId = document.getElementById("mix").value;
+    const mixSlug = document.getElementById("mix").value;
+    const csrfToken = document.querySelector(
+      '#song-form input[name="csrf_token"]'
+    ).value;
 
     for (const { file, element } of fileData) {
-      const text = await file.text();
-      const response = await fetch(
-        `/songs/create.json?mix_id=${encodeURIComponent(mixId)}`,
-        {
-          method: "POST",
-          ...getCSRFHeaders(),
-          body: text.trim(),
-        }
-      );
+      const formData = new FormData();
+      formData.append("mix_slug", mixSlug);
+      formData.append("simfile", file);
+      formData.append("csrf_token", csrfToken);
+
+      const response = await fetch("/songs/create.json", {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
 
       const result = await response.json();
       if (response.ok) {

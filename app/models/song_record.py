@@ -26,7 +26,7 @@ class SongRecord(BaseModel, AutocompleteMixin):
     banner = db.relationship("BannerRecord", back_populates="song", uselist=False)
 
     title = db.Column(db.Text, nullable=True)
-    slug = db.Column(db.Text, nullable=False, unique=True)
+    slug = db.Column(db.Text, nullable=False)
     artist = db.Column(db.Text, nullable=True)
     title_translit = db.Column(db.Text, nullable=True)
     artist_translit = db.Column(db.Text, nullable=True)
@@ -48,6 +48,26 @@ class SongRecord(BaseModel, AutocompleteMixin):
         "artist": ("text", artist),
         "artist_translit": ("text", artist_translit),
     }
+
+    @classmethod
+    def by_slug(cls, mix_slug: str, song_slug: str):
+        from app.models.mix_record import MixRecord
+
+        return (
+            db.session.query(cls)
+            .join(MixRecord)
+            .filter(MixRecord.slug == mix_slug, cls.slug == song_slug)
+            .one_or_none()
+        )
+
+    @classmethod
+    def get(cls, id=None, mix_slug=None, song_slug=None):
+        if mix_slug and song_slug:
+            return cls.by_slug(mix_slug, song_slug)
+        elif id:
+            return cls.by_id(id)
+        else:
+            raise ValueError("Either id or (mix_slug, song_slug) must be provided.")
 
     @classmethod
     def from_sim(cls, sim: Simfile) -> "SongRecord":

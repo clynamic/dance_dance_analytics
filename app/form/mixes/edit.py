@@ -1,4 +1,4 @@
-from app.form.mix.create import MixCreateForm
+from app.form.mixes.create import MixCreateForm
 from app.models.banner_record import BannerRecord
 from app.models.mix_record import MixRecord
 

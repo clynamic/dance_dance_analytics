@@ -55,7 +55,10 @@
       value="{{ request.args.get('mix_title', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/mixes/autocomplete" field="title"></auto-complete>
+    <auto-complete
+      endpoint="{{ url_for('mixes.autocomplete') }}"
+      field="title"
+    ></auto-complete>
   </div>
   {% endif %}
 

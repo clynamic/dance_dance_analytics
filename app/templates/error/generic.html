@@ -1,0 +1,17 @@
+{% extends "layout.html" %} {% block title %}500 Internal Server Error{%
+endblock %} {% block body %}
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/error/generic.css') }}"
+  />
+</partial-head>
+
+<div class="content">
+  <h1 class="title">:&#40;</h1>
+  <h3 class="subtitle">Something went wrong!</h3>
+  <p class="message">We'll get the lights on stage back up and running soon.</p>
+  <p class="debug-message">{% if debug %}{{ debug }} {% endif %}</p>
+</div>
+
+{% endblock %}
