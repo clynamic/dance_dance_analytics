@@ -8,6 +8,7 @@ from .database import db
 from app.web.routes import web_bp
 from app.web.mixes.routes import mix_bp
 from app.web.songs.routes import song_bp
+from app.web.charts.routes import chart_bp
 from app.web.assets.routes import assets_bp
 from app.web.auth.routes import auth_bp
 
@@ -26,6 +27,7 @@ def create_app():
     app.register_blueprint(web_bp)
     app.register_blueprint(mix_bp)
     app.register_blueprint(song_bp)
+    app.register_blueprint(chart_bp)
     app.register_blueprint(assets_bp)
     app.register_blueprint(auth_bp)
 

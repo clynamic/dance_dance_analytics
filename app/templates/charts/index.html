@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% block title %}Charts{% endblock %} {% block body
+%}
+
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/charts/index.css') }}"
+  />
+</partial-head>
+
+<partial-aside class="app-sidebar"></partial-aside>
+
+<div class="content">
+  {% if song %} {% include "songs/_detail.html" %} {% endif %}
+  <div class="result-header">
+    <h2>Charts</h2>
+    <p class="result-count">{{ charts|length }} results</p>
+  </div>
+  <div class="chart-list">
+    {% for chart in charts %} {% include "charts/_preview.html" %} {% else %}
+    <div class="empty-chart-list">
+      <i class="fas fa-folder-open fa-2x"></i>
+      <p>No charts found.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

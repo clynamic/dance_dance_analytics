@@ -1,0 +1,22 @@
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/charts/_preview.css') }}"
+  />
+</partial-head>
+
+<a
+  href="{{ url_for('charts.show', id=chart.id) }}"
+  class="link-wrapper chart-preview-link"
+  title="{{ chart.stepstype }}"
+>
+  <div class="chart-preview">
+    <div class="chart-info">
+      <h3 class="chart-title">{{ chart.song.title }}</h3>
+      <div class="chart-meta">
+        <p><i class="fa fa-shoe-prints"></i> {{ chart.stepstype }}</p>
+        <p><i class="fa fa-hashtag"></i> {{ chart.difficulty }}</p>
+      </div>
+    </div>
+  </div>
+</a>

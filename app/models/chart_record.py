@@ -2,8 +2,11 @@ import uuid
 from app.database import db
 from simfile.base import BaseChart
 
+from app.utils.autocomplete_columns import AutocompleteMixin
+from app.utils.base_model import BaseModel
 
-class ChartRecord(db.Model):
+
+class ChartRecord(BaseModel, AutocompleteMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -25,6 +28,14 @@ class ChartRecord(db.Model):
     description = db.Column(db.Text, nullable=True)
     difficulty = db.Column(db.Text)
     rating = db.Column(db.Integer)
+
+    QUERY_FIELDS = {
+        "id": ("id", [id]),
+        "stepstype": ("text", stepstype),
+        "description": ("text", description),
+        "difficulty": ("text", difficulty),
+        "rating": ("int", rating),
+    }
 
     @classmethod
     def from_sim(cls, chart: BaseChart) -> "ChartRecord":

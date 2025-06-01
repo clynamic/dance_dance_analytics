@@ -1,0 +1,12 @@
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/charts/_search.css') }}"
+  />
+</partial-head>
+
+<form
+  id="chart-search-form"
+  method="get"
+  action="{{ url_for('charts.index') }}"
+></form>

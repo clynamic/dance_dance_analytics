@@ -1,5 +1,6 @@
 from typing import Any, cast
 from flask import Blueprint, redirect, render_template, request, url_for
+from app.models.chart_record import ChartRecord
 from app.models.mix_record import MixRecord
 from app.models.song_record import SongRecord
 from app.parser.load import load_simfile
@@ -111,7 +112,12 @@ def show(id):
     if request_is_json():
         return json_data(song)
 
-    return render_template("songs/show.html", song=song)
+    query = ChartRecord.query_with_filters(request.args)
+    query = query.filter(ChartRecord.song_id == song.id)
+
+    charts = query.order_by(ChartRecord.difficulty).all()
+
+    return render_template("charts/index.html", song=song, charts=charts)
 
 
 @song_bp.route("/songs/autocomplete.json")

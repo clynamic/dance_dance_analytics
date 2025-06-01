@@ -1,22 +1,11 @@
-{% extends "layout.html" %} {% block title %}{{ song.title }}{% endblock %} {%
-block body %}
-
 <partial-head once>
   <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/songs/show.css') }}"
+    href="{{ url_for('static', filename='css/songs/_detail.css') }}"
   />
 </partial-head>
 
-<partial-aside class="app-sidebar">
-  {% if session.get("is_admin") %}
-  <hr />
-
-  <div class="sidebar-actions"></div>
-  {% endif %}
-</partial-aside>
-
-<div class="content">
+<div class="song-show">
   <div class="song-show-header">
     {% if song.banner_id %}
     <img
@@ -38,5 +27,3 @@ block body %}
     </div>
   </div>
 </div>
-
-{% endblock %}
