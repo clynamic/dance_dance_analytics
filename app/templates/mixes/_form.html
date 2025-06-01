@@ -11,7 +11,14 @@
   <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
 </partial-head>
 
-<form id="mix-form" enctype="multipart/form-data">
+<form
+  id="mix-form"
+  method="POST"
+  enctype="multipart/form-data"
+  action="{{ url_for('mixes.create') }}"
+>
+  {{ form.hidden_tag() }}
+
   <div class="form-field">
     <label for="banner">Banner Image</label>
 
@@ -48,13 +55,11 @@
       name="banner"
       accept="image/*"
       style="display: none"
-      {%
-      if
       required
-      %}required{%
-      endif
-      %}
     />
+    {% if errors and errors.banner %}
+    <span class="error">{{ errors.banner[0] }}</span>
+    {% endif %}
   </div>
 
   <div class="form-field">
@@ -63,11 +68,13 @@
       type="text"
       id="title"
       name="title"
-      required
       placeholder="Mix Title by Konami"
-      value="{{ mix.title if mix else '' }}"
-      autocomplete="off"
+      value="{{ form.title.data or '' }}"
+      required
     />
+    {% if errors and errors.title %}
+    <span class="error">{{ errors.title[0] }}</span>
+    {% endif %}
   </div>
 
   <div class="form-field">
@@ -78,13 +85,16 @@
       name="system"
       required
       placeholder="Game System"
-      value="{{ mix.system if mix else '' }}"
+      value="{{ form.system.data or '' }}"
       autocomplete="off"
     />
     <auto-complete
       endpoint="/mixes/autocomplete"
       field="system"
     ></auto-complete>
+    {% if errors and errors.system %}
+    <span class="error">{{ errors.system[0] }}</span>
+    {% endif %}
   </div>
 
   <div class="form-field">
@@ -95,13 +105,16 @@
       name="region"
       required
       placeholder="Region"
-      value="{{ mix.region if mix else '' }}"
+      value="{{ form.region.data or '' }}"
       autocomplete="off"
     />
     <auto-complete
       endpoint="/mixes/autocomplete"
       field="region"
     ></auto-complete>
+    {% if errors and errors.region %}
+    <span class="error">{{ errors.region[0] }}</span>
+    {% endif %}
   </div>
 
   <div class="form-field">
@@ -113,46 +126,15 @@
       required
       value="{{ mix.release if mix else '' }}"
     />
+    {% if errors and errors.release %}
+    <span class="error">{{ errors.release[0] }}</span>
+    {% endif %}
   </div>
 
-  <button type="submit">{{ action_label or 'Submit' }}</button>
+  <button type="submit">Submit</button>
 </form>
 
-<div id="result"></div>
-
 <script>
-  document.getElementById("mix-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const form = document.getElementById("mix-form");
-    const formData = new FormData(form);
-    const resultEl = document.getElementById("result");
-    resultEl.innerText = "";
-
-    try {
-      const response = await fetch("/mixes/create.json", {
-        method: "POST",
-        body: getCSRFFormData(formData),
-        ...getCSRFHeaders(),
-      });
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        const mixId = result.data.id;
-        const slug = result.data.slug;
-        window.location.href = `/mixes/${slug}`;
-      } else {
-        resultEl.innerText =
-          result.message +
-          (result.errors ? "\n" + JSON.stringify(result.errors, null, 2) : "");
-      }
-    } catch (err) {
-      console.error("Unexpected error:", err);
-      resultEl.innerText = "An unexpected error occurred. Please try again.";
-    }
-  });
-
   document.getElementById("banner").addEventListener("change", (e) => {
     const file = e.target.files[0];
     const preview = document.getElementById("banner-preview");

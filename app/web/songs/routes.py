@@ -33,7 +33,7 @@ def index():
             for key in ["mix_id", "mix_title"]:
                 query_params.pop(key, None)
             return redirect(
-                url_for("mix.show", id=mix.slug, **cast(dict[str, Any], query_params))
+                url_for("mixes.show", id=mix.slug, **cast(dict[str, Any], query_params))
             )
 
     extra_fields = {

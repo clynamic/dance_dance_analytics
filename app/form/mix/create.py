@@ -1,5 +1,6 @@
 import uuid
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed, FileRequired, FileSize
 from wtforms import StringField, DateField, FileField
 from wtforms.validators import DataRequired
 
@@ -12,7 +13,14 @@ class MixCreateForm(FlaskForm):
     system = StringField("System", validators=[DataRequired()])
     region = StringField("Region", validators=[DataRequired()])
     release = DateField("Release", validators=[DataRequired()], format="%Y-%m-%d")
-    banner = FileField("Banner")
+    banner = FileField(
+        "Banner",
+        validators=[
+            FileRequired(),
+            FileAllowed(["jpg", "jpeg", "png", "gif"], "Banner must be an image"),
+            FileSize(max_size=5 * 1024 * 1024),
+        ],
+    )
 
     def to_entity(self) -> MixRecord:
         banner = None

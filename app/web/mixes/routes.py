@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask import Blueprint, render_template, abort
 from app.form.mix.create import MixCreateForm
 from app.form.mix.edit import MixEditForm
@@ -35,10 +35,12 @@ def index():
 @mix_bp.route("/mixes/create")
 @require_admin
 def create():
-    return render_template("mixes/create.html")
+    form = MixCreateForm()
+
+    return render_template("mixes/create.html", form=form)
 
 
-@mix_bp.route("/mixes/create.json", methods=["POST"])
+@content_route(mix_bp, "/mixes/create", methods=["POST"])
 @require_admin
 def create_mix():
     form = MixCreateForm()
@@ -52,11 +54,18 @@ def create_mix():
         db.session.add(mix)
         db.session.commit()
 
-        return json_success(
-            "Mix created", {"id": str(mix.id), "slug": mix.slug}, status=201
-        )
+        if request.is_json:
+            return json_success(
+                "Mix created", {"id": str(mix.id), "slug": mix.slug}, status=201
+            )
+        flash("Mix created successfully", "success")
+        return redirect(url_for("mixes.show", slug=mix.slug))
 
-    return json_error("Validation failed", form.errors)
+    errors = form.errors
+    if request.is_json:
+        return json_error("Validation failed", errors)
+
+    return render_template("mixes/create.html", form=form, errors=errors)
 
 
 @content_route(mix_bp, "/mixes/<id>")
