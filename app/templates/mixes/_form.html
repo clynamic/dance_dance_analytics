@@ -8,6 +8,7 @@
     href="{{ url_for('static', filename='css/common/autocomplete.css') }}"
   />
   <script src="{{ url_for('static', filename='js/common/autocomplete.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/common/dropzone.js') }}"></script>
   <script src="{{ url_for('static', filename='js/common/csrf.js') }}"></script>
 </partial-head>
 
@@ -28,24 +29,21 @@
       id="banner-preview-wrapper"
     >
       {% if mix and mix.banner_id %}
+
       <img
         id="banner-preview"
         src="{{ url_for('assets.get_banner', id=mix.banner_id) }}"
         alt="Preview"
         style="display: block"
       />
-      <div
-        class="banner-placeholder"
-        id="banner-placeholder"
-        style="display: none"
-      >
+      <div class="banner-placeholder" id="banner-placeholder">
         Upload Banner
       </div>
       {% else %}
       <div class="banner-placeholder" id="banner-placeholder">
         Upload Banner
       </div>
-      <img id="banner-preview" src="" alt="Preview" style="display: none" />
+      <img id="banner-preview" src="" alt="Preview" />
       {% endif %}
     </label>
 
@@ -57,6 +55,18 @@
       style="display: none"
       required
     />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        setupDropzone({
+          dropArea: document.getElementById("banner-preview-wrapper"),
+          input: document.getElementById("banner"),
+          preview: document.getElementById("banner-preview"),
+          placeholder: document.getElementById("banner-placeholder"),
+        });
+      });
+    </script>
+
     {% if errors and errors.banner %}
     <span class="error">{{ errors.banner[0] }}</span>
     {% endif %}
@@ -133,24 +143,3 @@
 
   <button type="submit">Submit</button>
 </form>
-
-<script>
-  document.getElementById("banner").addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    const preview = document.getElementById("banner-preview");
-    const placeholder = document.getElementById("banner-placeholder");
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-        preview.style.display = "block";
-        placeholder.style.display = "none";
-      };
-      reader.readAsDataURL(file);
-    } else {
-      preview.style.display = "none";
-      placeholder.style.display = "flex";
-    }
-  });
-</script>
