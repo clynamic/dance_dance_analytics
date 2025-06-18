@@ -95,7 +95,13 @@ def edit(id=None, slug=None):
     if not mix:
         abort(404)
 
-    form = MixEditForm()
+    form = MixEditForm(
+        title=mix.title,
+        slug=mix.slug,
+        system=mix.system,
+        region=mix.region,
+        release=mix.release,
+    )
 
     return render_template("mixes/edit.html", mix=mix, form=form)
 
