@@ -95,7 +95,9 @@ def edit(id=None, slug=None):
     if not mix:
         abort(404)
 
-    return render_template("mixes/edit.html", mix=mix)
+    form = MixEditForm()
+
+    return render_template("mixes/edit.html", mix=mix, form=form)
 
 
 @model_route(mix_bp, "/mixes/<id>/edit", methods=["PATCH"], endpoint="edit_cmd_by_id")
