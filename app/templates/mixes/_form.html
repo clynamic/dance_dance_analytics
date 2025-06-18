@@ -15,7 +15,7 @@
   id="mix-form"
   method="POST"
   enctype="multipart/form-data"
-  action="{{ url_for('mixes.create') }}"
+  action="{% if mix %}{{ url_for('mixes.edit_by_id', id=mix.id) }}{% else %}{{ url_for('mixes.create') }}{% endif %}"
 >
   {{ form.hidden_tag() }}
 
@@ -52,7 +52,6 @@
       name="banner"
       accept="image/*"
       style="display: none"
-      required
     />
 
     <script>

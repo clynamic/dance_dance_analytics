@@ -106,8 +106,8 @@ def edit(id=None, slug=None):
     return render_template("mixes/edit.html", mix=mix, form=form)
 
 
-@model_route(mix_bp, "/mixes/<id>/edit", methods=["PATCH"], endpoint="edit_cmd_by_id")
-@model_route(mix_bp, "/<slug>/edit", methods=["PATCH"], endpoint="edit_cmd")
+@model_route(mix_bp, "/mixes/<id>/edit", methods=["POST"], endpoint="edit_cmd_by_id")
+@model_route(mix_bp, "/<slug>/edit", methods=["POST"], endpoint="edit_cmd")
 @require_admin
 def edit_cmd(id=None, slug=None):
     mix = MixRecord.get(slug=slug, id=id)
@@ -130,6 +130,7 @@ def edit_cmd(id=None, slug=None):
 
     update = form.update_entity(mix)
     db.session.add(update)
+    db.session.commit()
 
     if request.is_json:
         return json_success(

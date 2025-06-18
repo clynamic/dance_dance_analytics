@@ -16,7 +16,6 @@ class MixCreateForm(FlaskForm):
     banner = FileField(
         "Banner",
         validators=[
-            FileRequired(),
             FileAllowed(["jpg", "jpeg", "png", "gif"], "Banner must be an image"),
             FileSize(max_size=5 * 1024 * 1024),
         ],
