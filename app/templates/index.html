@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block body %}
+<partial-head once>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/index.css') }}"
+  />
+</partial-head>
+
+<div class="content">
+  <h2>Welcome to DanceDanceAnalytics</h2>
+  <p class="intro">
+    A searchable and comprehensive repository for information about charts in
+    DanceDanceRevolution.
+  </p>
+
+  <div class="card-grid">
+    <a href="{{ url_for('mixes.index') }}" class="card-link">
+      <h3>Mixes</h3>
+      <p>
+        View all official DDR releases and explore the songs and charts for each
+        one.
+      </p>
+    </a>
+
+    <a href="{{ url_for('songs.index') }}" class="card-link">
+      <h3>Songs</h3>
+      <p>
+        Browse a full alphabetized list of DDR songs and view their associated
+        charts.
+      </p>
+    </a>
+
+    <a href="{{ url_for('charts.index') }}" class="card-link">
+      <h3>Charts</h3>
+      <p>
+        Explore all charts across all songs in a sortable, spreadsheet-style
+        view.
+      </p>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

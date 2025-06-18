@@ -50,4 +50,4 @@ def handle_exception(e) -> ResponseReturnValue:
 
 @web_bp.route("/")
 def index():
-    return mixes.index()
+    return render_template("index.html")
