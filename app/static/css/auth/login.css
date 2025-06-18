@@ -16,7 +16,7 @@ button[type="submit"] {
   width: 100%;
 }
 
-#login-error {
+#error {
   margin-top: var(--space-m);
   color: var(--error-color);
   text-align: center;

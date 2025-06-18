@@ -10,7 +10,7 @@
 <div class="content">
   <h2>Admin</h2>
   <div class="card">
-    <form method="POST" action="/auth/logout" id="logout-form">
+    <form method="POST" action="{{ url_for('auth.logout') }}" d="logout-form">
       <button type="submit">Log out</button>
       </form> 
     </form>
