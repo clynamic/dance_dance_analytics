@@ -25,7 +25,10 @@
       value="{{ request.args.get('title', '') }}"
       autocomplete="off"
     />
-    <auto-complete endpoint="/songs/autocomplete" field="title"></auto-complete>
+    <auto-complete
+      endpoint="{{ url_for('songs.autocomplete') }}"
+      field="title"
+    ></auto-complete>
   </div>
 
   <div class="form-field">
@@ -39,7 +42,7 @@
       autocomplete="off"
     />
     <auto-complete
-      endpoint="/songs/autocomplete"
+      endpoint="{{ url_for('songs.autocomplete') }}"
       field="artist"
     ></auto-complete>
   </div>

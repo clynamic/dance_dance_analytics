@@ -57,7 +57,7 @@ customElements.define(
         const query = encodeURIComponent(input.value);
         try {
           const response = await fetch(
-            `${endpoint}.json?field=${field}&query=${query}&limit=${limit}`
+            `${endpoint}?field=${field}&query=${query}&limit=${limit}`
           );
           if (response.ok) {
             if (document.activeElement !== input) return;
