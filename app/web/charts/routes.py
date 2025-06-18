@@ -1,6 +1,5 @@
 from typing import Any, cast
 from flask import Blueprint, render_template, request, redirect, url_for
-from app.models.mix_record import MixRecord
 from app.models.song_record import SongRecord
 from app.models.chart_record import ChartRecord
 from app.utils.responses import model_route, request_is_json

@@ -1,7 +1,6 @@
 from app.database import db
 from sqlalchemy.inspection import inspect
-from sqlalchemy import inspect, or_
-import uuid
+from sqlalchemy import inspect
 
 from app.utils.query_builder import build_dynamic_query
 
